@@ -2,20 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color"
-      content="#021522">
-
-<title>The Reef — For Dhari 🐠❤️</title>
+<title>The Reef 🐠</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
-      rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+  rel="stylesheet"
+>
 
 <style>
 
@@ -23,2436 +20,1777 @@
    RESET
 ========================================================= */
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html,
-body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
-body{
-    font-family:"Quicksand",sans-serif;
-
+body {
     background:
         radial-gradient(
-            ellipse at 50% -10%,
-            rgba(100,225,255,.20),
-            transparent 42%
+            ellipse at 50% 0%,
+            rgba(55, 180, 220, .22),
+            transparent 45%
         ),
         linear-gradient(
-            180deg,
-            #01121e 0%,
-            #022d42 35%,
-            #04596d 68%,
-            #087f88 100%
+            to bottom,
+            #031c32,
+            #052e4b 42%,
+            #031d34 72%,
+            #010c18
         );
 
-    color:white;
-}
+    color: white;
 
+    font-family: Inter, sans-serif;
+}
 
 /* =========================================================
    OCEAN LIGHT
 ========================================================= */
 
-.ocean-light{
-    position:fixed;
-    inset:-40%;
+.ocean-light {
 
-    z-index:1;
-    pointer-events:none;
+    position: fixed;
+
+    inset: -30%;
+
+    pointer-events: none;
 
     background:
-        linear-gradient(
-            105deg,
-            transparent 20%,
-            rgba(255,255,255,.055) 42%,
-            transparent 55%
-        ),
-        linear-gradient(
-            75deg,
-            transparent 38%,
-            rgba(120,240,255,.045) 51%,
-            transparent 65%
+        conic-gradient(
+            from 180deg,
+            transparent,
+            rgba(130,230,255,.07),
+            transparent,
+            rgba(130,230,255,.05),
+            transparent
         );
 
-    filter:blur(20px);
+    filter: blur(25px);
 
     animation:
-        oceanLight
-        13s
-        ease-in-out
-        infinite
-        alternate;
+        oceanMove 10s ease-in-out infinite alternate;
+
+    z-index: 1;
 }
 
-@keyframes oceanLight{
+@keyframes oceanMove {
 
-    from{
+    from {
         transform:
-            translateX(-5%)
+            translateX(-3%)
             rotate(-2deg);
     }
 
-    to{
+    to {
         transform:
-            translateX(5%)
+            translateX(3%)
             rotate(2deg);
     }
-
 }
 
-
 /* =========================================================
-   TOP MESSAGE
+   HEADER
 ========================================================= */
 
-.top-message{
+.header {
 
-    position:fixed;
+    position: fixed;
 
-    z-index:100;
+    top: 24px;
 
-    top:23px;
-    left:50%;
-
-    width:92%;
+    left: 50%;
 
     transform:
         translateX(-50%);
 
-    text-align:center;
+    width: 90%;
 
-    color:
-        rgba(255,255,255,.73);
+    text-align: center;
+
+    z-index: 100;
+
+    transition:
+        opacity .7s ease;
+}
+
+.header h1 {
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
     font-size:
-        clamp(.7rem,1.5vw,.95rem);
+        clamp(38px, 7vw, 64px);
 
-    letter-spacing:.07em;
+    font-weight: 500;
+
+    letter-spacing: .04em;
 
     text-shadow:
-        0 2px 12px rgba(0,0,0,.65);
-
-    pointer-events:none;
+        0 0 15px rgba(255,255,255,.15),
+        0 0 35px rgba(80,200,255,.2);
 }
 
+.header p {
 
-/* =========================================================
-   PARTICLES
-========================================================= */
+    margin-top: 4px;
 
-.particles{
+    font-size: 10px;
 
-    position:fixed;
-    inset:0;
+    letter-spacing: .18em;
 
-    z-index:4;
+    text-transform: uppercase;
 
-    pointer-events:none;
+    color:
+        rgba(220,245,255,.55);
 }
 
-.particle{
-
-    position:absolute;
-
-    width:3px;
-    height:3px;
-
-    border-radius:50%;
-
-    background:
-        rgba(180,245,255,.7);
-
-    box-shadow:
-        0 0 8px
-        rgba(100,230,255,.7);
-
-    animation:
-        particleFloat
-        ease-in-out
-        infinite
-        alternate;
+body.love-mode .header {
+    opacity: .18;
 }
-
-@keyframes particleFloat{
-
-    from{
-        opacity:.15;
-
-        transform:
-            translateY(8px)
-            scale(.7);
-    }
-
-    to{
-        opacity:.8;
-
-        transform:
-            translateY(-15px)
-            scale(1.3);
-    }
-
-}
-
-
-/* =========================================================
-   BUBBLES
-========================================================= */
-
-.bubbles{
-
-    position:fixed;
-    inset:0;
-
-    z-index:5;
-
-    overflow:hidden;
-
-    pointer-events:none;
-}
-
-.bubble{
-
-    position:absolute;
-
-    bottom:-40px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.35);
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.035);
-
-    box-shadow:
-        inset 2px 2px 4px
-        rgba(255,255,255,.2),
-        0 0 8px
-        rgba(255,255,255,.08);
-
-    animation:
-        bubbleRise
-        linear
-        infinite;
-}
-
-@keyframes bubbleRise{
-
-    0%{
-        transform:
-            translate(0,0)
-            scale(.6);
-
-        opacity:0;
-    }
-
-    12%{
-        opacity:.7;
-    }
-
-    50%{
-        transform:
-            translate(15px,-55vh)
-            scale(1);
-    }
-
-    100%{
-        transform:
-            translate(-12px,-120vh)
-            scale(1.15);
-
-        opacity:0;
-    }
-
-}
-
 
 /* =========================================================
    REEF
 ========================================================= */
 
-.reef{
+#reef {
 
-    position:fixed;
+    position: fixed;
 
-    inset:0;
+    inset: 0;
 
-    z-index:20;
+    overflow: hidden;
 
-    overflow:hidden;
+    z-index: 5;
 }
-
 
 /* =========================================================
-   FISH
+   HINT
 ========================================================= */
 
-.fish{
+.hint {
 
-    position:absolute;
+    position: fixed;
 
-    left:0;
-    top:var(--top);
+    bottom: 24px;
 
-    width:var(--size);
-    height:var(--size);
+    left: 50%;
 
-    border:0;
+    transform:
+        translateX(-50%);
 
-    padding:0;
+    width: 90%;
 
-    background:none;
+    text-align: center;
 
-    color:var(--color);
+    color:
+        rgba(220,245,255,.62);
 
-    cursor:pointer;
+    font-size: 10px;
 
-    pointer-events:auto;
+    letter-spacing: .1em;
 
-    opacity:var(--opacity);
+    z-index: 100;
+
+    transition:
+        opacity .6s ease,
+        transform .6s ease;
+}
+
+.hint.hide {
+
+    opacity: 0;
+
+    transform:
+        translateX(-50%)
+        translateY(15px);
+}
+
+/* =========================================================
+   BUBBLES
+========================================================= */
+
+.bubble {
+
+    position: absolute;
+
+    bottom: -30px;
+
+    border:
+        1px solid
+        rgba(190,240,255,.3);
+
+    border-radius: 50%;
+
+    background:
+        rgba(170,235,255,.04);
 
     animation:
-        swimLeft
-        var(--duration)
+        bubbleRise
         linear
-        var(--delay)
         infinite;
 
-    will-change:transform;
+    pointer-events: none;
 
-    -webkit-tap-highlight-color:transparent;
+    z-index: 2;
 }
 
-.fish.right{
-    animation-name:swimRight;
+@keyframes bubbleRise {
+
+    0% {
+
+        transform:
+            translateY(0)
+            translateX(0);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: .6;
+    }
+
+    50% {
+
+        transform:
+            translateY(-50vh)
+            translateX(20px);
+    }
+
+    100% {
+
+        transform:
+            translateY(-115vh)
+            translateX(-20px);
+
+        opacity: 0;
+    }
 }
 
-.fish svg{
+/* =========================================================
+   PARTICLES
+========================================================= */
 
-    width:100%;
-    height:100%;
+.particle {
 
-    overflow:visible;
+    position: absolute;
+
+    width: 2px;
+
+    height: 2px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(200,245,255,.5);
+
+    box-shadow:
+        0 0 6px
+        rgba(150,230,255,.5);
+
+    animation:
+        particleFloat
+        linear
+        infinite;
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+@keyframes particleFloat {
+
+    from {
+
+        transform:
+            translateY(0);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: .6;
+    }
+
+    to {
+
+        transform:
+            translateY(-90px);
+
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   NORMAL FISH
+========================================================= */
+
+.fish {
+
+    position: absolute;
+
+    width: 60px;
+
+    height: 38px;
+
+    border: 0;
+
+    padding: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    transform-origin: center;
 
     filter:
         drop-shadow(
-            0 3px 5px
-            rgba(0,0,0,.25)
+            0 4px 5px
+            rgba(0,0,0,.18)
         );
 
     transition:
-        transform .2s ease;
+        opacity .8s ease;
 }
 
-.fish:hover svg{
+.fish svg {
 
-    transform:
-        scale(1.08);
+    width: 100%;
+
+    height: 100%;
+
+    overflow: visible;
+
+    pointer-events: none;
 }
 
+.fish-name {
 
-/* =========================================================
-   FISH MOVEMENT
-========================================================= */
+    position: absolute;
 
-@keyframes swimLeft{
+    left: 50%;
 
-    0%{
-        transform:
-            translateX(115vw)
-            translateY(0)
-            rotate(0deg);
-    }
-
-    20%{
-        transform:
-            translateX(80vw)
-            translateY(var(--w1))
-            rotate(-2deg);
-    }
-
-    40%{
-        transform:
-            translateX(55vw)
-            translateY(var(--w2))
-            rotate(2deg);
-    }
-
-    60%{
-        transform:
-            translateX(30vw)
-            translateY(var(--w3))
-            rotate(-2deg);
-    }
-
-    80%{
-        transform:
-            translateX(5vw)
-            translateY(var(--w4))
-            rotate(2deg);
-    }
-
-    100%{
-        transform:
-            translateX(-25vw)
-            translateY(0)
-            rotate(0deg);
-    }
-}
-
-@keyframes swimRight{
-
-    0%{
-        transform:
-            translateX(-25vw)
-            translateY(0)
-            rotate(0deg);
-    }
-
-    20%{
-        transform:
-            translateX(5vw)
-            translateY(var(--w1))
-            rotate(2deg);
-    }
-
-    40%{
-        transform:
-            translateX(30vw)
-            translateY(var(--w2))
-            rotate(-2deg);
-    }
-
-    60%{
-        transform:
-            translateX(55vw)
-            translateY(var(--w3))
-            rotate(2deg);
-    }
-
-    80%{
-        transform:
-            translateX(80vw)
-            translateY(var(--w4))
-            rotate(-2deg);
-    }
-
-    100%{
-        transform:
-            translateX(115vw)
-            translateY(0)
-            rotate(0deg);
-    }
-}
-
-
-/* =========================================================
-   FISH NAME
-========================================================= */
-
-.fish-name{
-
-    position:absolute;
-
-    left:50%;
-    top:-27px;
+    top: -17px;
 
     transform:
         translateX(-50%)
         translateY(5px);
 
-    padding:
-        4px 9px;
+    white-space: nowrap;
 
-    border-radius:999px;
+    padding:
+        3px 7px;
+
+    border-radius: 20px;
 
     background:
-        rgba(1,15,25,.84);
+        rgba(0,15,30,.75);
 
     border:
         1px solid
-        rgba(255,255,255,.12);
+        rgba(180,230,255,.15);
 
     color:
-        rgba(255,255,255,.92);
+        rgba(235,250,255,.8);
 
-    font-size:9px;
+    font-size: 9px;
 
-    font-weight:700;
-
-    letter-spacing:.04em;
-
-    white-space:nowrap;
-
-    opacity:0;
-
-    pointer-events:none;
+    opacity: 0;
 
     transition:
         opacity .25s ease,
         transform .25s ease;
 
-    box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.25);
+    pointer-events: none;
+
+    backdrop-filter: blur(5px);
 }
 
-.fish:hover .fish-name{
+.fish:hover .fish-name {
 
-    opacity:1;
+    opacity: 1;
 
     transform:
         translateX(-50%)
         translateY(0);
 }
 
+/* =========================================================
+   SWIMMING
+========================================================= */
+
+.fish.left {
+
+    animation:
+        swimLeft
+        var(--duration)
+        linear
+        infinite;
+
+    animation-delay:
+        var(--delay);
+}
+
+.fish.right {
+
+    animation:
+        swimRight
+        var(--duration)
+        linear
+        infinite;
+
+    animation-delay:
+        var(--delay);
+}
+
+@keyframes swimLeft {
+
+    from {
+
+        transform:
+            translateX(110vw)
+            translateY(var(--y));
+    }
+
+    to {
+
+        transform:
+            translateX(-150px)
+            translateY(
+                calc(
+                    var(--y) +
+                    var(--drift)
+                )
+            );
+    }
+}
+
+@keyframes swimRight {
+
+    from {
+
+        transform:
+            translateX(-150px)
+            translateY(var(--y))
+            scaleX(-1);
+    }
+
+    to {
+
+        transform:
+            translateX(110vw)
+            translateY(
+                calc(
+                    var(--y) +
+                    var(--drift)
+                )
+            )
+            scaleX(-1);
+    }
+}
 
 /* =========================================================
    DHARI
 ========================================================= */
 
-.dhari{
+.fish.dhari {
 
-    z-index:35;
+    width: 82px;
 
-    /*
-       Slightly warm and slightly brighter
-       than ordinary fish.
-    */
+    height: 58px;
+
+    z-index: 50;
 
     filter:
         drop-shadow(
             0 0 5px
-            rgba(255,205,120,.28)
+            rgba(255,160,200,.5)
+        )
+        drop-shadow(
+            0 0 18px
+            rgba(255,80,150,.25)
         );
 }
 
-.dhari-name{
+.heart-body {
 
-    color:#ffe3a8;
+    position: absolute;
 
-    border-color:
-        rgba(255,215,130,.3);
-}
+    left: 15px;
 
+    top: 8px;
 
-/* =========================================================
-   DHARI SPARKLES
-========================================================= */
+    width: 34px;
 
-.dhari-sparkle{
+    height: 34px;
 
-    position:absolute;
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgba(255,240,245,.8),
+            rgba(255,170,205,.65),
+            rgba(235,70,125,.45)
+        );
 
-    pointer-events:none;
+    border-radius:
+        50% 50% 50% 8%;
 
-    color:
-        rgba(255,235,180,.8);
+    transform:
+        rotate(-45deg);
 
-    font-size:8px;
+    opacity: .72;
 
-    opacity:0;
-
-    text-shadow:
+    box-shadow:
         0 0 7px
-        rgba(255,220,150,.8);
-}
+        rgba(255,160,200,.6),
 
-.sparkle-1{
-
-    right:15%;
-    top:5%;
+        0 0 18px
+        rgba(255,90,150,.35);
 
     animation:
-        dhariSparkle
-        4.8s
-        ease-in-out
-        infinite;
-}
-
-.sparkle-2{
-
-    left:12%;
-    top:62%;
-
-    animation:
-        dhariSparkle
-        6.2s
-        ease-in-out
-        1.7s
-        infinite;
-}
-
-.sparkle-3{
-
-    right:28%;
-    bottom:8%;
-
-    animation:
-        dhariSparkle
-        5.5s
-        ease-in-out
+        dhariPulse
         3s
-        infinite;
-}
-
-@keyframes dhariSparkle{
-
-    0%,
-    55%,
-    100%{
-
-        opacity:0;
-
-        transform:
-            scale(.3)
-            rotate(0deg);
-    }
-
-    63%{
-
-        opacity:.8;
-
-        transform:
-            scale(1)
-            rotate(20deg);
-    }
-
-    70%{
-
-        opacity:.35;
-
-        transform:
-            scale(.7)
-            rotate(45deg);
-    }
-
-    76%{
-
-        opacity:0;
-
-        transform:
-            scale(.3)
-            rotate(70deg);
-    }
-}
-
-
-/* =========================================================
-   TINY DHARI HEART
-========================================================= */
-
-.dhari-hint{
-
-    position:absolute;
-
-    left:-5px;
-    bottom:-5px;
-
-    color:
-        rgba(255,190,205,.75);
-
-    font-size:9px;
-
-    pointer-events:none;
-
-    opacity:0;
-
-    animation:
-        dhariHeartHint
-        7s
         ease-in-out
         infinite;
 }
 
-@keyframes dhariHeartHint{
+.heart-body::before,
+.heart-body::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 34px;
+
+    height: 34px;
+
+    background: inherit;
+
+    border-radius: 50%;
+
+    box-shadow: inherit;
+}
+
+.heart-body::before {
+
+    left: 0;
+
+    top: -17px;
+}
+
+.heart-body::after {
+
+    left: 17px;
+
+    top: 0;
+}
+
+.heart-tail {
+
+    position: absolute;
+
+    right: 1px;
+
+    top: 20px;
+
+    width: 27px;
+
+    height: 20px;
+
+    background:
+        rgba(255,140,180,.5);
+
+    clip-path:
+        polygon(
+            0 50%,
+            100% 0,
+            82% 50%,
+            100% 100%
+        );
+
+    animation:
+        tailMove
+        .7s
+        ease-in-out
+        infinite alternate;
+}
+
+.heart-eye {
+
+    position: absolute;
+
+    left: 46px;
+
+    top: 21px;
+
+    width: 4px;
+
+    height: 4px;
+
+    background:
+        rgba(40,10,25,.7);
+
+    border-radius: 50%;
+}
+
+.heart-shine {
+
+    position: absolute;
+
+    left: 23px;
+
+    top: 13px;
+
+    width: 8px;
+
+    height: 4px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.55);
+
+    transform:
+        rotate(-35deg);
+}
+
+@keyframes dhariPulse {
 
     0%,
-    64%,
-    100%{
-
-        opacity:0;
+    100% {
 
         transform:
-            translateY(3px)
-            scale(.4);
+            rotate(-45deg)
+            scale(.94);
+
+        opacity: .55;
     }
 
-    69%{
-
-        opacity:.75;
+    50% {
 
         transform:
-            translateY(0)
-            scale(1);
-    }
+            rotate(-45deg)
+            scale(1.05);
 
-    74%{
-        opacity:.3;
-    }
-
-    79%{
-        opacity:.65;
-    }
-
-    84%{
-
-        opacity:0;
-
-        transform:
-            translateY(-8px)
-            scale(.7);
+        opacity: .78;
     }
 }
 
+@keyframes tailMove {
+
+    from {
+        transform: rotate(-8deg);
+    }
+
+    to {
+        transform: rotate(8deg);
+    }
+}
 
 /* =========================================================
    SEABED
 ========================================================= */
 
-.seabed{
+.seabed {
 
-    position:fixed;
+    position: absolute;
 
-    bottom:0;
-    left:0;
-    right:0;
+    bottom: -5px;
 
-    height:18vh;
+    left: -5%;
 
-    min-height:110px;
+    width: 110%;
 
-    z-index:10;
-
-    pointer-events:none;
-}
-
-.sand{
-
-    position:absolute;
-
-    inset:20% 0 0;
-
-    background:
-
-        radial-gradient(
-            circle at 15% 40%,
-            rgba(255,255,255,.12) 0 2px,
-            transparent 3px
-        ),
-
-        radial-gradient(
-            circle at 45% 60%,
-            rgba(100,70,40,.1) 0 2px,
-            transparent 3px
-        ),
-
-        radial-gradient(
-            circle at 78% 35%,
-            rgba(255,255,255,.12) 0 2px,
-            transparent 3px
-        ),
-
-        linear-gradient(
-            180deg,
-            #d9bc83,
-            #b8945c
-        );
+    height: 80px;
 
     border-radius:
-        50% 50% 0 0 /
-        20% 20% 0 0;
-}
+        50% 50% 0 0;
 
+    background:
+        linear-gradient(
+            to bottom,
+            #44322a,
+            #181218
+        );
+
+    z-index: 12;
+
+    opacity: .8;
+}
 
 /* =========================================================
    SEAWEED
 ========================================================= */
 
-.seaweed{
+.seaweed {
 
-    position:absolute;
+    position: absolute;
 
-    bottom:5%;
+    bottom: 30px;
 
-    width:7px;
+    width: 5px;
 
-    border-radius:
-        100% 0 100% 0;
+    border-radius: 10px;
 
     background:
         linear-gradient(
-            180deg,
-            #4ecb8b,
-            #16583e
+            to right,
+            #143c39,
+            #2d786c,
+            #123632
         );
 
-    transform-origin:bottom;
+    transform-origin: bottom;
 
     animation:
-        sway
-        var(--speed)
+        weedMove
+        4s
         ease-in-out
-        infinite;
+        infinite alternate;
+
+    z-index: 13;
 }
 
-@keyframes sway{
+@keyframes weedMove {
 
-    0%,
-    100%{
-        transform:rotate(-8deg);
+    from {
+        transform: rotate(-6deg);
     }
 
-    50%{
-        transform:rotate(10deg);
+    to {
+        transform: rotate(7deg);
     }
 }
-
 
 /* =========================================================
    CORAL
 ========================================================= */
 
-.coral{
+.coral {
 
-    position:absolute;
+    position: absolute;
 
-    bottom:5%;
+    bottom: 28px;
 
-    width:70px;
-    height:100px;
+    width: 80px;
+
+    height: 80px;
+
+    z-index: 14;
 }
 
-.coral span{
+.coral span {
 
-    position:absolute;
+    position: absolute;
 
-    bottom:0;
+    bottom: 0;
 
-    width:14px;
+    width: 10px;
 
-    border-radius:
-        50% 50% 15% 15%;
+    border-radius: 10px;
 
     background:
         linear-gradient(
-            90deg,
-            #d55c78,
-            #ef919c
+            to right,
+            #613246,
+            #a85b72,
+            #643347
         );
 
-    transform-origin:bottom;
-}
-
-.coral span:nth-child(1){
-
-    left:2px;
-    height:58px;
-
-    transform:rotate(-18deg);
-}
-
-.coral span:nth-child(2){
-
-    left:25px;
-    height:92px;
-}
-
-.coral span:nth-child(3){
-
-    right:3px;
-    height:65px;
-
-    transform:rotate(18deg);
-}
-
-
-/* =========================================================
-   REVEAL
-========================================================= */
-
-.reveal{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:500;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    overflow:hidden;
-
-    background:
-        radial-gradient(
-            circle at 50% 42%,
-            rgba(12,87,104,.96),
-            rgba(1,12,21,.995) 75%
-        );
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:
-        opacity .8s ease;
-}
-
-.reveal.active{
-
-    opacity:1;
-
-    pointer-events:auto;
-}
-
-
-/* =========================================================
-   REVEAL GLOW
-========================================================= */
-
-.reveal-glow{
-
-    position:absolute;
-
-    width:80vmin;
-    height:80vmin;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,194,92,.23),
-            rgba(255,130,160,.07) 35%,
-            transparent 70%
-        );
-
-    filter:blur(10px);
+    transform-origin: bottom;
 
     animation:
-        revealGlow
-        5s
+        coralMove
+        3s
+        ease-in-out
+        infinite alternate;
+}
+
+@keyframes coralMove {
+
+    from {
+        transform: rotate(-5deg);
+    }
+
+    to {
+        transform: rotate(6deg);
+    }
+}
+
+/* =========================================================
+   ❤️ LOVE SCREEN
+========================================================= */
+
+#loveScreen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+
+    background:
+        radial-gradient(
+            circle at 50% 43%,
+            rgba(255,80,150,.10),
+            transparent 38%
+        );
+}
+
+#loveScreen.show {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+/* =========================================================
+   BIG FISH HEART
+========================================================= */
+
+#fishHeart {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 46%;
+
+    transform:
+        translate(-50%,-50%);
+
+    width:
+        min(82vw, 620px);
+
+    height:
+        min(68vh, 560px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+/* heart grid */
+
+.heart-grid {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100%;
+}
+
+/* =========================================================
+   INDIVIDUAL HEART FISH
+========================================================= */
+
+.heart-fish {
+
+    position: absolute;
+
+    width: 28px;
+
+    height: 18px;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.1);
+
+    transition:
+        opacity .65s ease,
+        transform .8s
+        cubic-bezier(.2,.8,.2,1);
+
+    filter:
+        drop-shadow(
+            0 0 5px
+            rgba(100,220,255,.55)
+        );
+}
+
+#loveScreen.show .heart-fish {
+
+    opacity: .92;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+}
+
+.heart-fish svg {
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: visible;
+}
+
+/* subtle swimming */
+
+.heart-fish-inner {
+
+    animation:
+        heartFishSwim
+        var(--fish-speed)
+        ease-in-out
+        infinite alternate;
+}
+
+@keyframes heartFishSwim {
+
+    from {
+        transform:
+            translateY(-2px)
+            rotate(-3deg);
+    }
+
+    to {
+        transform:
+            translateY(2px)
+            rotate(3deg);
+    }
+}
+
+/* =========================================================
+   HEART GLOW
+========================================================= */
+
+.heart-glow {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 46%;
+
+    transform:
+        translate(-50%,-50%);
+
+    width:
+        min(55vw, 420px);
+
+    height:
+        min(50vh, 400px);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255,100,160,.13),
+            transparent 65%
+        );
+
+    filter: blur(25px);
+
+    pointer-events: none;
+
+    animation:
+        heartGlow
+        3s
         ease-in-out
         infinite;
 }
 
-@keyframes revealGlow{
+@keyframes heartGlow {
 
     0%,
-    100%{
-
-        transform:scale(.85);
-
-        opacity:.6;
+    100% {
+        transform:
+            translate(-50%,-50%)
+            scale(.92);
     }
 
-    50%{
-
-        transform:scale(1.12);
-
-        opacity:1;
+    50% {
+        transform:
+            translate(-50%,-50%)
+            scale(1.08);
     }
 }
-
 
 /* =========================================================
-   RAYS
+   LOVE TEXT
 ========================================================= */
 
-.reveal::before{
+.love-text {
 
-    content:"";
+    position: absolute;
 
-    position:absolute;
+    left: 50%;
 
-    inset:-50%;
-
-    background:
-        conic-gradient(
-            from 0deg,
-            transparent,
-            rgba(255,216,145,.08),
-            transparent 15%,
-            rgba(255,143,169,.06),
-            transparent 30%
-        );
-
-    animation:
-        rotateRays
-        18s
-        linear
-        infinite;
-}
-
-@keyframes rotateRays{
-
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-
-/* =========================================================
-   FORMATION
-========================================================= */
-
-.formation{
-
-    position:absolute;
-
-    inset:0;
-
-    z-index:20;
-
-    pointer-events:none;
-}
-
-.formation-fish{
-
-    position:absolute;
-
-    left:var(--x);
-    top:var(--y);
-
-    width:var(--size);
-
-    opacity:0;
+    bottom: 11%;
 
     transform:
-        translate(
-            var(--fromX),
-            var(--fromY)
-        )
-        rotate(var(--rotation))
-        scale(.2);
+        translateX(-50%)
+        translateY(15px);
 
-    animation:
-        formationFly
-        1.45s
-        cubic-bezier(.16,.8,.25,1)
-        var(--delay)
-        forwards;
-}
+    text-align: center;
 
-.formation-fish svg{
+    opacity: 0;
 
-    width:100%;
-    height:auto;
-
-    filter:
-        drop-shadow(
-            0 0 7px
-            rgba(255,220,150,.35)
-        );
-}
-
-@keyframes formationFly{
-
-    0%{
-
-        opacity:0;
-
-        transform:
-            translate(
-                var(--fromX),
-                var(--fromY)
-            )
-            rotate(var(--rotation))
-            scale(.2);
-    }
-
-    25%{
-        opacity:1;
-    }
-
-    100%{
-
-        opacity:1;
-
-        transform:
-            translate(0,0)
-            rotate(0)
-            scale(1);
-    }
-}
-
-
-/* =========================================================
-   LOVE MESSAGE
-========================================================= */
-
-.love-message{
-
-    position:absolute;
-
-    z-index:100;
-
-    left:50%;
-    bottom:5vh;
-
-    width:92%;
-
-    transform:
-        translate(-50%,30px);
-
-    text-align:center;
-
-    opacity:0;
-
-    animation:
-        messageIn
-        1.2s
-        ease
-        4.3s
-        forwards;
-}
-
-@keyframes messageIn{
-
-    to{
-
-        opacity:1;
-
-        transform:
-            translate(-50%,0);
-    }
-}
-
-.love-title{
+    transition:
+        opacity 1s ease 1.2s,
+        transform 1s ease 1.2s;
 
     font-family:
-        "Caveat",
-        cursive;
+        "Cormorant Garamond",
+        serif;
 
     font-size:
-        clamp(
-            3rem,
-            9vw,
-            6.5rem
-        );
+        clamp(28px, 6vw, 46px);
 
-    line-height:.9;
+    white-space: nowrap;
+
+    color:
+        rgba(255,235,245,.94);
 
     text-shadow:
-        0 0 25px
-        rgba(255,200,120,.35);
+        0 0 12px
+        rgba(255,120,170,.55);
 }
 
-.love-title .pink{
+#loveScreen.show .love-text {
 
-    color:
-        #ff91aa;
-}
-
-.love-sub{
-
-    margin-top:12px;
-
-    color:
-        rgba(255,255,255,.72);
-
-    font-size:
-        clamp(.78rem,1.8vw,1rem);
-
-    line-height:1.6;
-}
-
-.close{
-
-    margin-top:18px;
-
-    border:0;
-
-    padding:
-        11px 20px;
-
-    border-radius:999px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffd88a,
-            #ffb5c5
-        );
-
-    color:#25333a;
-
-    font-family:inherit;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 8px 30px
-        rgba(255,180,140,.2);
-
-    transition:.25s ease;
-}
-
-.close:hover{
+    opacity: 1;
 
     transform:
-        translateY(-2px)
-        scale(1.03);
+        translateX(-50%)
+        translateY(0);
 }
 
+.love-subtext {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-family: Inter, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+
+    color:
+        rgba(220,245,255,.48);
+}
+
+/* =========================================================
+   BACK
+========================================================= */
+
+.back-button {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 3.5%;
+
+    transform:
+        translateX(-50%);
+
+    padding:
+        9px 19px;
+
+    border:
+        1px solid
+        rgba(255,170,200,.25);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,100,155,.07);
+
+    color:
+        rgba(255,225,238,.7);
+
+    font-family: Inter, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: .14em;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition:
+        opacity .8s ease 1.5s,
+        background .3s ease;
+}
+
+#loveScreen.show .back-button {
+    opacity: 1;
+}
+
+.back-button:hover {
+
+    background:
+        rgba(255,100,155,.16);
+
+    color: white;
+}
 
 /* =========================================================
    FLOATING HEARTS
 ========================================================= */
 
-.hearts{
+.float-heart {
 
-    position:absolute;
+    position: fixed;
 
-    inset:0;
+    z-index: 700;
 
-    pointer-events:none;
-}
+    pointer-events: none;
 
-.heart{
+    color:
+        rgba(255,130,175,.7);
 
-    position:absolute;
-
-    left:var(--left);
-
-    bottom:-30px;
-
-    color:#ff9eb3;
-
-    font-size:var(--size);
-
-    opacity:0;
-}
-
-.reveal.active .heart{
+    font-size:
+        var(--size);
 
     animation:
-        heartRise
-        5s
-        ease-in
-        var(--delay)
+        floatHeart
+        3s
+        ease-out
         forwards;
+
+    text-shadow:
+        0 0 10px
+        rgba(255,100,160,.55);
 }
 
-@keyframes heartRise{
+@keyframes floatHeart {
 
-    0%{
+    0% {
 
-        opacity:0;
+        opacity: 0;
 
         transform:
             translateY(0)
-            rotate(0);
+            scale(.5);
     }
 
-    15%{
-        opacity:.85;
+    15% {
+        opacity: .8;
     }
 
-    100%{
+    100% {
 
-        opacity:0;
+        opacity: 0;
 
         transform:
-            translateY(-85vh)
-            rotate(25deg);
+            translateY(-180px)
+            translateX(var(--move))
+            scale(1.1);
     }
 }
-
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media(max-width:650px){
+@media (max-width: 600px) {
 
-    .top-message{
-
-        top:17px;
-
-        font-size:.68rem;
+    .header {
+        top: 18px;
     }
 
-    .seabed{
-
-        height:15vh;
+    .header h1 {
+        font-size: 40px;
     }
 
-    .fish-name{
+    .header p {
+        font-size: 8px;
+    }
 
-        font-size:8px;
+    .fish {
+        width: 50px;
+        height: 32px;
+    }
 
-        top:-23px;
+    .fish.dhari {
+        width: 72px;
+        height: 52px;
+    }
+
+    #fishHeart {
+
+        width: 94vw;
+
+        height: 58vh;
+
+        top: 43%;
+    }
+
+    .heart-fish {
+
+        width: 18px;
+
+        height: 12px;
+    }
+
+    .love-text {
+
+        bottom: 11%;
+
+        font-size: 29px;
+    }
+
+    .back-button {
+
+        bottom: 3%;
+
+        font-size: 8px;
     }
 }
-
 
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
 
-@media(prefers-reduced-motion:reduce){
+@media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
-    *::after{
+    *::after {
 
-        animation-duration:.001ms!important;
+        animation-duration:
+            .01ms !important;
 
-        animation-iteration-count:1!important;
+        animation-iteration-count:
+            1 !important;
     }
 }
 
 </style>
 </head>
 
-
 <body>
-
-
-<!-- =======================================================
-     SVG FISH LIBRARY
-======================================================= -->
-
-<svg width="0"
-     height="0"
-     style="position:absolute"
-     aria-hidden="true">
-
-<defs>
-
-
-<!-- CLOWNFISH -->
-
-<symbol id="clownfish"
-        viewBox="0 0 120 70">
-
-    <path
-        d="M78 35 L113 8 Q100 35 113 62 Z"
-        fill="currentColor"/>
-
-    <ellipse
-        cx="51"
-        cy="35"
-        rx="38"
-        ry="22"
-        fill="currentColor"/>
-
-    <path
-        d="M30 15 Q40 35 30 55"
-        fill="none"
-        stroke="white"
-        stroke-width="9"/>
-
-    <path
-        d="M53 14 Q63 35 53 56"
-        fill="none"
-        stroke="white"
-        stroke-width="9"/>
-
-    <circle
-        cx="23"
-        cy="27"
-        r="7"
-        fill="white"/>
-
-    <circle
-        cx="23"
-        cy="27"
-        r="3"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- ANGELFISH -->
-
-<symbol id="angelfish"
-        viewBox="0 0 120 100">
-
-    <path
-        d="M73 50 L113 19 Q101 50 113 81 Z"
-        fill="currentColor"/>
-
-    <path
-        d="
-            M35 19
-            Q64 8 83 50
-            Q64 92 35 81
-            Q49 50 35 19Z"
-        fill="currentColor"/>
-
-    <path
-        d="M47 18 L60 82"
-        stroke="rgba(255,255,255,.6)"
-        stroke-width="7"/>
-
-    <path
-        d="M61 18 L74 82"
-        stroke="rgba(255,255,255,.3)"
-        stroke-width="6"/>
-
-    <circle
-        cx="38"
-        cy="43"
-        r="6"
-        fill="white"/>
-
-    <circle
-        cx="38"
-        cy="43"
-        r="3"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- PUFFER -->
-
-<symbol id="puffer"
-        viewBox="0 0 110 90">
-
-    <circle
-        cx="47"
-        cy="45"
-        r="32"
-        fill="currentColor"/>
-
-    <path
-        d="M74 45 L105 21 Q94 45 105 69 Z"
-        fill="currentColor"/>
-
-    <circle
-        cx="37"
-        cy="36"
-        r="7"
-        fill="white"/>
-
-    <circle
-        cx="37"
-        cy="36"
-        r="3"
-        fill="#17242b"/>
-
-    <circle cx="23" cy="52" r="2" fill="white"/>
-    <circle cx="32" cy="65" r="2" fill="white"/>
-    <circle cx="52" cy="67" r="2" fill="white"/>
-
-    <path
-        d="
-            M21 18 L26 8
-            M34 14 L37 3
-            M49 13 L52 2
-            M64 18 L70 7"
-        stroke="currentColor"
-        stroke-width="5"
-        stroke-linecap="round"/>
-
-</symbol>
-
-
-<!-- TANG -->
-
-<symbol id="tang"
-        viewBox="0 0 120 70">
-
-    <path
-        d="M78 35 L112 8 Q100 35 112 62 Z"
-        fill="currentColor"/>
-
-    <ellipse
-        cx="52"
-        cy="35"
-        rx="35"
-        ry="23"
-        fill="currentColor"/>
-
-    <path
-        d="M25 17 Q40 35 25 53"
-        stroke="rgba(255,255,255,.75)"
-        stroke-width="5"
-        fill="none"/>
-
-    <circle
-        cx="28"
-        cy="27"
-        r="6"
-        fill="white"/>
-
-    <circle
-        cx="28"
-        cy="27"
-        r="3"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- BETTA -->
-
-<symbol id="betta"
-        viewBox="0 0 130 100">
-
-    <path
-        d="
-            M64 49
-            Q96 5 125 8
-            Q101 32 126 50
-            Q100 48 122 87
-            Q91 84 62 58Z"
-        fill="currentColor"/>
-
-    <ellipse
-        cx="53"
-        cy="50"
-        rx="31"
-        ry="20"
-        fill="currentColor"/>
-
-    <circle
-        cx="30"
-        cy="43"
-        r="6"
-        fill="white"/>
-
-    <circle
-        cx="30"
-        cy="43"
-        r="3"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- BUTTERFLY -->
-
-<symbol id="butterfly"
-        viewBox="0 0 120 90">
-
-    <path
-        d="M72 45 L113 18 Q101 45 113 72 Z"
-        fill="currentColor"/>
-
-    <ellipse
-        cx="48"
-        cy="45"
-        rx="34"
-        ry="29"
-        fill="currentColor"/>
-
-    <path
-        d="M40 17 Q51 45 40 73"
-        stroke="white"
-        stroke-width="7"
-        opacity=".65"
-        fill="none"/>
-
-    <circle
-        cx="27"
-        cy="37"
-        r="6"
-        fill="white"/>
-
-    <circle
-        cx="27"
-        cy="37"
-        r="3"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- GOLDFISH -->
-
-<symbol id="goldfish"
-        viewBox="0 0 120 75">
-
-    <path
-        d="M73 37 L112 10 Q100 37 112 64 Z"
-        fill="currentColor"/>
-
-    <ellipse
-        cx="49"
-        cy="37"
-        rx="35"
-        ry="24"
-        fill="currentColor"/>
-
-    <path
-        d="M47 15 Q57 37 47 60"
-        stroke="rgba(255,255,255,.4)"
-        stroke-width="5"
-        fill="none"/>
-
-    <circle
-        cx="26"
-        cy="29"
-        r="6"
-        fill="white"/>
-
-    <circle
-        cx="26"
-        cy="29"
-        r="3"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- KOI -->
-
-<symbol id="koi"
-        viewBox="0 0 130 70">
-
-    <path
-        d="M82 35 L120 7 Q108 35 120 63 Z"
-        fill="currentColor"/>
-
-    <ellipse
-        cx="53"
-        cy="35"
-        rx="42"
-        ry="20"
-        fill="currentColor"/>
-
-    <circle
-        cx="42"
-        cy="31"
-        r="10"
-        fill="#fff"/>
-
-    <circle
-        cx="42"
-        cy="31"
-        r="4"
-        fill="#222"/>
-
-    <path
-        d="M18 35 Q34 22 47 35 Q34 48 18 35Z"
-        fill="rgba(255,255,255,.5)"/>
-
-</symbol>
-
-
-<!-- LIONFISH -->
-
-<symbol id="lionfish"
-        viewBox="0 0 130 100">
-
-    <ellipse
-        cx="56"
-        cy="50"
-        rx="28"
-        ry="22"
-        fill="currentColor"/>
-
-    <path
-        d="
-            M35 29 L7 5
-            M43 27 L25 0
-            M52 27 L48 0
-            M62 30 L73 4
-            M68 36 L98 12
-            M69 64 L99 88
-            M61 70 L73 96
-            M51 72 L48 99
-            M42 70 L25 94
-            M35 66 L8 89"
-        stroke="currentColor"
-        stroke-width="6"
-        stroke-linecap="round"/>
-
-    <path
-        d="M80 50 L120 23 Q108 50 120 77 Z"
-        fill="currentColor"/>
-
-    <circle
-        cx="39"
-        cy="43"
-        r="5"
-        fill="white"/>
-
-    <circle
-        cx="39"
-        cy="43"
-        r="2"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- SWORDTAIL -->
-
-<symbol id="swordtail"
-        viewBox="0 0 130 65">
-
-    <ellipse
-        cx="52"
-        cy="33"
-        rx="34"
-        ry="19"
-        fill="currentColor"/>
-
-    <path
-        d="
-            M79 33
-            L123 3
-            L86 33
-            L123 63 Z"
-        fill="currentColor"/>
-
-    <circle
-        cx="30"
-        cy="28"
-        r="5"
-        fill="white"/>
-
-    <circle
-        cx="30"
-        cy="28"
-        r="2.5"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- SEAHORSE -->
-
-<symbol id="seahorse"
-        viewBox="0 0 80 120">
-
-    <path
-        d="
-            M43 15
-            Q63 18 61 39
-            Q60 54 49 59
-            Q65 66 61 84
-            Q57 99 40 96
-            Q26 93 29 79
-            Q31 69 42 69
-            Q48 69 48 77
-            Q47 83 42 84
-            Q51 87 53 79
-            Q55 69 43 65
-            Q27 61 27 46
-            Q27 31 39 26
-            L39 15Z"
-        fill="currentColor"/>
-
-    <circle
-        cx="45"
-        cy="30"
-        r="4"
-        fill="white"/>
-
-    <circle
-        cx="45"
-        cy="30"
-        r="2"
-        fill="#17242b"/>
-
-</symbol>
-
-
-<!-- JELLYFISH -->
-
-<symbol id="jellyfish"
-        viewBox="0 0 100 100">
-
-    <path
-        d="
-            M15 48
-            Q15 15 50 15
-            Q85 15 85 48
-            Z"
-        fill="currentColor"/>
-
-    <path
-        d="
-            M23 49 Q23 75 20 91
-            M38 49 Q38 72 34 96
-            M53 49 Q53 77 51 92
-            M68 49 Q68 73 72 96
-            M82 49 Q82 75 85 90"
-        stroke="currentColor"
-        stroke-width="6"
-        fill="none"
-        stroke-linecap="round"/>
-
-</symbol>
-
-
-<!-- FORMATION FISH -->
-
-<symbol id="smallfish"
-        viewBox="0 0 100 55">
-
-    <path
-        d="M65 27 L97 7 Q84 27 97 48 Z"
-        fill="currentColor"/>
-
-    <ellipse
-        cx="42"
-        cy="27"
-        rx="28"
-        ry="16"
-        fill="currentColor"/>
-
-    <circle
-        cx="25"
-        cy="22"
-        r="5"
-        fill="white"/>
-
-    <circle
-        cx="25"
-        cy="22"
-        r="2.5"
-        fill="#17242b"/>
-
-</symbol>
-
-</defs>
-</svg>
-
-
-<!-- =======================================================
-     OCEAN
-======================================================= -->
 
 <div class="ocean-light"></div>
 
-<div class="particles"
-     id="particles"></div>
 
-<div class="bubbles"
-     id="bubbles"></div>
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-<div class="top-message">
+<header class="header">
+
+    <h1>The Reef</h1>
+
+    <p>
+        somewhere beneath the waves,
+        someone is waiting
+    </p>
+
+</header>
+
+
+<!-- =====================================================
+     REEF
+===================================================== -->
+
+<div id="reef"></div>
+
+
+<!-- =====================================================
+     HINT
+===================================================== -->
+
+<div
+    class="hint"
+    id="hint"
+>
     Everyone here has a name...
     but one little heart is hiding in plain sight. 🌊♡
 </div>
 
-<div class="reef"
-     id="reef"></div>
 
+<!-- =====================================================
+     LOVE SCREEN
+===================================================== -->
 
-<!-- =======================================================
-     SEABED
-======================================================= -->
+<section id="loveScreen">
 
-<div class="seabed">
+    <div class="heart-glow"></div>
 
-    <div class="sand"></div>
+    <div id="fishHeart">
 
-    <div class="coral"
-         style="left:4%">
-        <span></span>
-        <span></span>
-        <span></span>
+        <div
+            class="heart-grid"
+            id="heartGrid"
+        ></div>
+
     </div>
 
-    <div class="coral"
-         style="left:87%;transform:scale(.8)">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+    <div class="love-text">
 
-    <div class="coral"
-         style="left:46%;transform:scale(.5)">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+        I love you, Dhari ❤️
 
-    <div class="seaweed"
-         style="left:10%;height:75px;--speed:4s">
-    </div>
-
-    <div class="seaweed"
-         style="left:17%;height:105px;--speed:4.5s">
-    </div>
-
-    <div class="seaweed"
-         style="left:29%;height:65px;--speed:3.5s">
-    </div>
-
-    <div class="seaweed"
-         style="left:40%;height:90px;--speed:4.2s">
-    </div>
-
-    <div class="seaweed"
-         style="left:60%;height:75px;--speed:4s">
-    </div>
-
-    <div class="seaweed"
-         style="left:72%;height:105px;--speed:4.6s">
-    </div>
-
-    <div class="seaweed"
-         style="left:80%;height:65px;--speed:3.7s">
-    </div>
-
-    <div class="seaweed"
-         style="left:94%;height:80px;--speed:4.2s">
-    </div>
-
-</div>
-
-
-<!-- =======================================================
-     REVEAL
-======================================================= -->
-
-<div class="reveal"
-     id="reveal">
-
-    <div class="reveal-glow"></div>
-
-    <div class="hearts">
-
-        <span class="heart"
-              style="--left:4%;--size:20px;--delay:.2s">
-            ♥
-        </span>
-
-        <span class="heart"
-              style="--left:13%;--size:15px;--delay:.8s">
-            ♥
-        </span>
-
-        <span class="heart"
-              style="--left:25%;--size:25px;--delay:.4s">
-            ♥
-        </span>
-
-        <span class="heart"
-              style="--left:39%;--size:17px;--delay:1s">
-            ♥
-        </span>
-
-        <span class="heart"
-              style="--left:52%;--size:23px;--delay:.3s">
-            ♥
-        </span>
-
-        <span class="heart"
-              style="--left:66%;--size:16px;--delay:.9s">
-            ♥
-        </span>
-
-        <span class="heart"
-              style="--left:78%;--size:25px;--delay:.5s">
-            ♥
-        </span>
-
-        <span class="heart"
-              style="--left:91%;--size:18px;--delay:1.1s">
-            ♥
+        <span class="love-subtext">
+            my heart found you
         </span>
 
     </div>
 
-    <div class="formation"
-         id="formation">
-    </div>
+    <button
+        class="back-button"
+        id="backButton"
+    >
+        swim back into the reef
+    </button>
 
-    <div class="love-message">
-
-        <div class="love-title">
-            I love you,
-            <span class="pink">Dhari</span> ♥
-        </div>
-
-        <div class="love-sub">
-
-            Out of all the fish in this endless ocean,
-            somehow my heart still found you.
-
-            <br>
-
-            Maybe some people are simply meant
-            to find each other. 🌙
-
-        </div>
-
-        <button class="close"
-                id="close">
-
-            Back to our little reef 🐠
-
-        </button>
-
-    </div>
-
-</div>
+</section>
 
 
 <script>
 
 /* =========================================================
-   BASIC CONFIG
+   BASIC HELPERS
 ========================================================= */
 
 const reef =
     document.getElementById("reef");
 
-const FISH_COUNT = 160;
+const hint =
+    document.getElementById("hint");
+
+const loveScreen =
+    document.getElementById("loveScreen");
+
+const heartGrid =
+    document.getElementById("heartGrid");
+
+const backButton =
+    document.getElementById("backButton");
 
 
-/* =========================================================
-   SPECIES
-========================================================= */
-
-const species = [
-
-    {
-        id:"clownfish",
-        min:45,
-        max:75
-    },
-
-    {
-        id:"angelfish",
-        min:55,
-        max:88
-    },
-
-    {
-        id:"puffer",
-        min:42,
-        max:72
-    },
-
-    {
-        id:"tang",
-        min:48,
-        max:82
-    },
-
-    {
-        id:"betta",
-        min:50,
-        max:88
-    },
-
-    {
-        id:"butterfly",
-        min:48,
-        max:82
-    },
-
-    {
-        id:"goldfish",
-        min:48,
-        max:80
-    },
-
-    {
-        id:"koi",
-        min:50,
-        max:85
-    },
-
-    {
-        id:"lionfish",
-        min:55,
-        max:90
-    },
-
-    {
-        id:"swordtail",
-        min:45,
-        max:78
-    },
-
-    {
-        id:"seahorse",
-        min:42,
-        max:70
-    },
-
-    {
-        id:"jellyfish",
-        min:45,
-        max:75
-    }
-
-];
-
-
-/* =========================================================
-   NAMES
-========================================================= */
-
-const fishNames = {
-
-    clownfish:[
-        "Nemo",
-        "Momo",
-        "Milo",
-        "Coco",
-        "Pip",
-        "Bubbles",
-        "Rio",
-        "Sunny"
-    ],
-
-    angelfish:[
-        "Angel",
-        "Pearl",
-        "Luna",
-        "Aurora",
-        "Halo",
-        "Iris",
-        "Celeste"
-    ],
-
-    puffer:[
-        "Puffy",
-        "Mochi",
-        "Tofu",
-        "Pudding",
-        "Bun",
-        "Marshmallow",
-        "Muffin"
-    ],
-
-    tang:[
-        "Blue",
-        "Sky",
-        "Ocean",
-        "Sapphire",
-        "Azure",
-        "Indigo",
-        "Wave"
-    ],
-
-    betta:[
-        "Ruby",
-        "Rose",
-        "Velvet",
-        "Blush",
-        "Scarlet",
-        "Cherry",
-        "Ember"
-    ],
-
-    butterfly:[
-        "Flutter",
-        "Daisy",
-        "Petal",
-        "Buttercup",
-        "Bloom",
-        "Bambi"
-    ],
-
-    goldfish:[
-        "Goldie",
-        "Honey",
-        "Amber",
-        "Mango",
-        "Peach",
-        "Sunny",
-        "Daisy"
-    ],
-
-    koi:[
-        "Sakura",
-        "Maple",
-        "Autumn",
-        "River",
-        "Misty",
-        "Akira",
-        "Koi"
-    ],
-
-    lionfish:[
-        "Leo",
-        "Majesty",
-        "Crown",
-        "King",
-        "Flame",
-        "Raja"
-    ],
-
-    swordtail:[
-        "Blade",
-        "Swift",
-        "Arrow",
-        "Dash",
-        "Flash",
-        "Comet"
-    ],
-
-    seahorse:[
-        "Pebble",
-        "Coral",
-        "Winnie",
-        "Bambi",
-        "Sandy",
-        "Dory"
-    ],
-
-    jellyfish:[
-        "Glow",
-        "Moon",
-        "Pearl",
-        "Dream",
-        "Cloud",
-        "Starlight"
-    ]
-
-};
-
-
-/* =========================================================
-   COLORS
-========================================================= */
-
-const colors = [
-
-    "#ff7043",
-    "#ff914d",
-    "#f25f5c",
-
-    "#ffcf56",
-    "#e6bd45",
-    "#f3d267",
-
-    "#ff75a0",
-    "#e66b9b",
-
-    "#a875e8",
-    "#c58aff",
-
-    "#4db8ff",
-    "#67d1ff",
-    "#3e8eea",
-
-    "#45d6a2",
-    "#6ee7bd",
-
-    "#f18a62",
-    "#d85f7c",
-
-    "#f4a261",
-    "#e9c46a",
-
-    "#7ac9b5",
-    "#86b9cf"
-
-];
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function random(min,max){
+function random(min, max) {
 
     return Math.random() *
-        (max-min) +
+        (max - min) +
         min;
 }
 
-function randomItem(array){
+function randomItem(array) {
 
     return array[
         Math.floor(
-            Math.random() * array.length
+            Math.random() *
+            array.length
         )
     ];
 }
 
 
 /* =========================================================
-   NAME GENERATOR
+   FISH COLORS
 ========================================================= */
 
-const usedNames = new Set();
+const fishColors = [
 
-function getFishName(type){
+    "#ff895f",
+    "#ffd866",
+    "#47d1e8",
+    "#ff78a5",
+    "#8ee5ef",
+    "#79d5bb",
+    "#d9a8ef",
+    "#ffad58",
+    "#f6e6b5"
 
-    const names =
-        fishNames[type] ||
-        ["Little Fish"];
-
-    const unused =
-        names.filter(
-            name =>
-                !usedNames.has(
-                    type + "_" + name
-                )
-        );
-
-    let name;
-
-    if(unused.length){
-
-        name =
-            randomItem(unused);
-
-    }else{
-
-        name =
-            randomItem(names);
-
-    }
-
-    usedNames.add(
-        type + "_" + name
-    );
-
-    return name;
-}
+];
 
 
 /* =========================================================
-   VIEWBOX
+   NORMAL FISH SVG
 ========================================================= */
 
-function getViewBox(type){
+const fishSVGs = [
 
-    const boxes = {
+`
+<svg viewBox="0 0 100 60">
 
-        clownfish:"0 0 120 70",
-        angelfish:"0 0 120 100",
-        puffer:"0 0 110 90",
-        tang:"0 0 120 70",
-        betta:"0 0 130 100",
-        butterfly:"0 0 120 90",
-        goldfish:"0 0 120 75",
-        koi:"0 0 130 70",
-        lionfish:"0 0 130 100",
-        swordtail:"0 0 130 65",
-        seahorse:"0 0 80 120",
-        jellyfish:"0 0 100 100"
+    <path
+        d="
+        M15 30
+        C20 12 45 8 63 16
+        C78 23 81 40 65 48
+        C45 58 21 48 15 30Z"
+        fill="COLOR"
+    />
 
-    };
+    <path
+        d="
+        M65 22
+        L98 7
+        L84 30
+        L98 53
+        L65 41Z"
+        fill="COLOR"
+    />
 
-    return boxes[type]
-        || "0 0 120 70";
-}
+    <circle
+        cx="57"
+        cy="25"
+        r="3"
+        fill="#071522"
+    />
+
+</svg>
+`,
+
+`
+<svg viewBox="0 0 100 60">
+
+    <ellipse
+        cx="44"
+        cy="31"
+        rx="28"
+        ry="19"
+        fill="COLOR"
+    />
+
+    <path
+        d="
+        M67 31
+        L98 10
+        L84 31
+        L98 52
+        L67 40Z"
+        fill="COLOR"
+    />
+
+    <path
+        d="
+        M30 13
+        C25 24 25 38 30 49"
+        stroke="white"
+        stroke-width="5"
+        opacity=".45"
+        fill="none"
+    />
+
+    <circle
+        cx="57"
+        cy="26"
+        r="3"
+        fill="#071522"
+    />
+
+</svg>
+`,
+
+`
+<svg viewBox="0 0 100 60">
+
+    <path
+        d="
+        M13 31
+        C20 11 44 8 63 17
+        C79 25 79 42 63 49
+        C42 58 19 50 13 31Z"
+        fill="COLOR"
+    />
+
+    <path
+        d="
+        M63 21
+        L98 7
+        L84 31
+        L98 54
+        L63 42Z"
+        fill="COLOR"
+    />
+
+    <circle
+        cx="56"
+        cy="26"
+        r="3"
+        fill="#071522"
+    />
+
+</svg>
+`,
+
+`
+<svg viewBox="0 0 100 60">
+
+    <ellipse
+        cx="45"
+        cy="30"
+        rx="27"
+        ry="18"
+        fill="COLOR"
+    />
+
+    <path
+        d="
+        M68 30
+        L98 9
+        L85 30
+        L98 51
+        L68 40Z"
+        fill="COLOR"
+    />
+
+    <circle
+        cx="57"
+        cy="25"
+        r="3"
+        fill="#071522"
+    />
+
+</svg>
+`
+
+];
 
 
 /* =========================================================
-   CREATE FISH
+   NORMAL FISH
 ========================================================= */
 
-function createFish(){
+const names = [
+
+    "Mango",
+    "Peach",
+    "Honey",
+    "Milo",
+    "Luna",
+    "Mochi",
+    "Nemo",
+    "Bubbles",
+    "Coco",
+    "Sunny",
+    "Rio",
+    "Blue",
+    "Misty",
+    "Pearl",
+    "Coral",
+    "Nova",
+    "Sky",
+    "Marble",
+    "Toffee",
+    "Cookie",
+    "Oreo",
+    "Piku",
+    "Momo",
+    "Kiki",
+    "Toby",
+    "Leo",
+    "Nala",
+    "Daisy",
+    "Ruby",
+    "Rosie",
+    "Mimi",
+    "Kiwi",
+    "Poppy",
+    "Mocha",
+    "Choco",
+    "Peanut",
+    "Bunny",
+    "Cloud",
+    "Storm",
+    "River",
+    "Star",
+    "Moon",
+    "Comet",
+    "Echo",
+    "Willow",
+    "Maple",
+    "Clover",
+    "Sandy",
+    "Mint",
+    "Berry",
+    "Cherry",
+    "Olive",
+    "Panda",
+    "Tiger",
+    "Puff",
+    "Finn",
+    "Winnie",
+    "Theo",
+    "Ziggy",
+    "Biscuit",
+    "Noodle",
+    "Dobby",
+    "Simba",
+    "Koko",
+    "Muffin",
+    "Peppy",
+    "Bambi",
+    "Fudge",
+    "Brownie",
+    "Jelly",
+    "Sprout",
+    "Penny",
+    "Rumi",
+    "Mika",
+    "Yuki",
+    "Ari",
+    "Zara",
+    "Kumo",
+    "Suki",
+    "Miso",
+    "Taffy",
+    "Dumpling",
+    "Pudding",
+    "Waffle",
+    "Cupcake",
+    "Marshmallow",
+    "Cinnamon",
+    "Nutmeg",
+    "Caramel",
+    "Vanilla",
+    "Latte",
+    "Saffron",
+    "Jasmine",
+    "Rose",
+    "Iris",
+    "Violet",
+    "Tulip",
+    "Bluebell",
+    "Hazel",
+    "Brook",
+    "Rain",
+    "Stormy",
+    "Drizzle",
+    "Mist",
+    "Frost",
+    "Winter",
+    "Autumn",
+    "Summer",
+    "Spring",
+    "Ember",
+    "Flame",
+    "Spark",
+    "Glow",
+    "Shimmer",
+    "Twinkle",
+    "Starlight",
+    "Moonbeam",
+    "Sunray",
+    "Aurora",
+    "Galaxy",
+    "Cosmo",
+    "Rocket",
+    "Orbit",
+    "Pixel",
+    "Byte",
+    "Lucky",
+    "Joy",
+    "Hope",
+    "Dream",
+    "Wish",
+    "Magic",
+    "Wonder"
+
+];
+
+let nameIndex = 0;
+
+
+function createFish() {
 
     const fish =
         document.createElement("button");
 
     fish.className =
-        "fish";
-
-    if(Math.random() > .5){
-        fish.classList.add("right");
-    }
-
-    const type =
-        randomItem(species);
-
-    const size =
-        random(
-            type.min,
-            type.max
+        "fish " +
+        (
+            Math.random() > .5
+                ? "left"
+                : "right"
         );
 
     fish.style.setProperty(
-        "--size",
-        size + "px"
+        "--y",
+        random(8,88) + "vh"
     );
 
     fish.style.setProperty(
-        "--top",
-        random(5,82) + "%"
+        "--drift",
+        random(-70,70) + "px"
     );
 
     fish.style.setProperty(
         "--duration",
-        random(15,33) + "s"
+        random(18,42) + "s"
     );
 
     fish.style.setProperty(
         "--delay",
-        -random(0,30) + "s"
+        random(-40,0) + "s"
     );
 
-    fish.style.setProperty(
-        "--color",
-        randomItem(colors)
-    );
+    let svg =
+        randomItem(fishSVGs);
 
-    fish.style.setProperty(
-        "--opacity",
-        random(.45,.88)
-    );
+    const color =
+        randomItem(fishColors);
 
-    fish.style.setProperty(
-        "--w1",
-        random(-22,22) + "px"
-    );
+    svg =
+        svg.replaceAll(
+            "COLOR",
+            color
+        );
 
-    fish.style.setProperty(
-        "--w2",
-        random(-22,22) + "px"
-    );
+    const name =
+        names[
+            nameIndex++ %
+            names.length
+        ];
 
-    fish.style.setProperty(
-        "--w3",
-        random(-22,22) + "px"
-    );
-
-    fish.style.setProperty(
-        "--w4",
-        random(-22,22) + "px"
-    );
-
-    fish.innerHTML = `
-
-        <svg viewBox="${getViewBox(type.id)}">
-
-            <use href="#${type.id}"></use>
-
-        </svg>
-
-        <span class="fish-name">
-            ${getFishName(type.id)}
-        </span>
-
-    `;
+    fish.innerHTML =
+        svg +
+        `<span class="fish-name">${name}</span>`;
 
     reef.appendChild(fish);
 }
 
 
-/* =========================================================
-   CREATE MAIN FISH POPULATION
-========================================================= */
+/* create reef fish */
 
-for(
+for (
     let i = 0;
-    i < FISH_COUNT;
+    i < 150;
     i++
-){
+) {
 
     createFish();
 
@@ -2460,215 +1798,47 @@ for(
 
 
 /* =========================================================
-   WARM DECOYS
-========================================================= */
-
-const warmDecoyColors = [
-
-    "#e9ad58",
-    "#efb968",
-    "#dca14f"
-
-];
-
-const warmDecoyNames = [
-
-    "Mango",
-    "Peach",
-    "Honey"
-
-];
-
-for(
-    let i=0;
-    i<3;
-    i++
-){
-
-    const decoy =
-        document.createElement("button");
-
-    decoy.className =
-        "fish";
-
-    if(Math.random() > .5){
-        decoy.classList.add("right");
-    }
-
-    decoy.style.setProperty(
-        "--size",
-        random(48,60) + "px"
-    );
-
-    decoy.style.setProperty(
-        "--top",
-        random(15,75) + "%"
-    );
-
-    decoy.style.setProperty(
-        "--duration",
-        random(18,28) + "s"
-    );
-
-    decoy.style.setProperty(
-        "--delay",
-        -random(0,20) + "s"
-    );
-
-    decoy.style.setProperty(
-        "--color",
-        warmDecoyColors[i]
-    );
-
-    decoy.style.setProperty(
-        "--opacity",
-        random(.65,.82)
-    );
-
-    decoy.style.setProperty(
-        "--w1",
-        random(-18,18) + "px"
-    );
-
-    decoy.style.setProperty(
-        "--w2",
-        random(-18,18) + "px"
-    );
-
-    decoy.style.setProperty(
-        "--w3",
-        random(-18,18) + "px"
-    );
-
-    decoy.style.setProperty(
-        "--w4",
-        random(-18,18) + "px"
-    );
-
-    decoy.innerHTML = `
-
-        <svg viewBox="0 0 120 70">
-
-            <use href="#clownfish"></use>
-
-        </svg>
-
-        <span class="fish-name">
-            ${warmDecoyNames[i]}
-        </span>
-
-    `;
-
-    reef.appendChild(decoy);
-}
-
-
-/* =========================================================
-   CREATE DHARI
+   DHARI FISH
 ========================================================= */
 
 const dhari =
     document.createElement("button");
 
 dhari.className =
-    "fish dhari";
-
-if(Math.random() > .5){
-    dhari.classList.add("right");
-}
-
-
-/*
-   Same movement.
-*/
+    "fish dhari left";
 
 dhari.style.setProperty(
-    "--size",
-    random(50,62) + "px"
+    "--y",
+    "48vh"
 );
 
 dhari.style.setProperty(
-    "--top",
-    random(12,76) + "%"
+    "--drift",
+    "30px"
 );
 
 dhari.style.setProperty(
     "--duration",
-    random(20,29) + "s"
+    "32s"
 );
 
 dhari.style.setProperty(
     "--delay",
-    -random(0,24) + "s"
+    "-10s"
 );
-
-
-/*
-   Slightly special warm tone.
-*/
-
-dhari.style.setProperty(
-    "--color",
-    randomItem([
-        "#f2b866",
-        "#eeb05e",
-        "#f4c16d",
-        "#e6a957"
-    ])
-);
-
-dhari.style.setProperty(
-    "--opacity",
-    random(.78,.9)
-);
-
-dhari.style.setProperty(
-    "--w1",
-    random(-18,18) + "px"
-);
-
-dhari.style.setProperty(
-    "--w2",
-    random(-18,18) + "px"
-);
-
-dhari.style.setProperty(
-    "--w3",
-    random(-18,18) + "px"
-);
-
-dhari.style.setProperty(
-    "--w4",
-    random(-18,18) + "px"
-);
-
 
 dhari.innerHTML = `
 
-    <svg viewBox="0 0 120 70">
+    <span class="heart-body"></span>
 
-        <use href="#clownfish"></use>
+    <span class="heart-tail"></span>
 
-    </svg>
+    <span class="heart-eye"></span>
 
-    <span class="fish-name dhari-name">
+    <span class="heart-shine"></span>
+
+    <span class="fish-name">
         Dhari ♡
-    </span>
-
-    <span class="dhari-sparkle sparkle-1">
-        ✦
-    </span>
-
-    <span class="dhari-sparkle sparkle-2">
-        ·
-    </span>
-
-    <span class="dhari-sparkle sparkle-3">
-        ✦
-    </span>
-
-    <span class="dhari-hint">
-        ♡
     </span>
 
 `;
@@ -2677,105 +1847,19 @@ reef.appendChild(dhari);
 
 
 /* =========================================================
-   OCCASIONAL DHARI HEART
-========================================================= */
-
-setInterval(()=>{
-
-    if(
-        Math.random() > .45 ||
-        !document.body.contains(dhari)
-    ){
-        return;
-    }
-
-    const hint =
-        document.createElement("span");
-
-    hint.textContent =
-        "♡";
-
-    hint.style.position =
-        "absolute";
-
-    hint.style.left =
-        random(-5,5) + "px";
-
-    hint.style.top =
-        random(35,65) + "%";
-
-    hint.style.color =
-        "rgba(255,205,130,.65)";
-
-    hint.style.fontSize =
-        random(7,11) + "px";
-
-    hint.style.pointerEvents =
-        "none";
-
-    dhari.appendChild(hint);
-
-    hint.animate(
-
-        [
-
-            {
-                opacity:0,
-                transform:"scale(.4)"
-            },
-
-            {
-                opacity:.7,
-                transform:"scale(1)"
-            },
-
-            {
-                opacity:0,
-                transform:
-                    `translate(
-                        ${random(-12,12)}px,
-                        ${random(8,20)}px
-                    )
-                    scale(.7)`
-            }
-
-        ],
-
-        {
-            duration:1500,
-            easing:"ease-out"
-        }
-
-    ).onfinish = ()=>{
-
-        hint.remove();
-
-    };
-
-},2200);
-
-
-/* =========================================================
    BUBBLES
 ========================================================= */
 
-const bubbles =
-    document.getElementById("bubbles");
-
-for(
-    let i=0;
-    i<48;
-    i++
-){
+function createBubble() {
 
     const bubble =
-        document.createElement("span");
+        document.createElement("div");
 
     bubble.className =
         "bubble";
 
     const size =
-        random(3,13);
+        random(3,12);
 
     bubble.style.width =
         size + "px";
@@ -2787,60 +1871,507 @@ for(
         random(0,100) + "%";
 
     bubble.style.animationDuration =
-        random(8,22) + "s";
+        random(7,18) + "s";
 
     bubble.style.animationDelay =
-        -random(0,20) + "s";
+        random(0,6) + "s";
 
-    bubbles.appendChild(
-        bubble
+    reef.appendChild(bubble);
+
+    setTimeout(
+        () => bubble.remove(),
+        24000
     );
 }
+
+for (
+    let i = 0;
+    i < 30;
+    i++
+) {
+
+    createBubble();
+
+}
+
+setInterval(
+    createBubble,
+    800
+);
 
 
 /* =========================================================
    PARTICLES
 ========================================================= */
 
-const particles =
-    document.getElementById("particles");
-
-for(
-    let i=0;
-    i<75;
-    i++
-){
+function createParticle() {
 
     const particle =
-        document.createElement("span");
+        document.createElement("div");
 
     particle.className =
         "particle";
-
-    const size =
-        random(1,3);
-
-    particle.style.width =
-        size + "px";
-
-    particle.style.height =
-        size + "px";
 
     particle.style.left =
         random(0,100) + "%";
 
     particle.style.top =
-        random(5,90) + "%";
+        random(20,100) + "%";
 
     particle.style.animationDuration =
-        random(2,6) + "s";
+        random(5,12) + "s";
 
-    particle.style.animationDelay =
-        -random(0,5) + "s";
-
-    particles.appendChild(
+    reef.appendChild(
         particle
     );
+
+    setTimeout(
+        () => particle.remove(),
+        15000
+    );
+}
+
+for (
+    let i = 0;
+    i < 60;
+    i++
+) {
+
+    createParticle();
+
+}
+
+setInterval(
+    createParticle,
+    450
+);
+
+
+/* =========================================================
+   SEAWEED
+========================================================= */
+
+for (
+    let i = 0;
+    i < 25;
+    i++
+) {
+
+    const weed =
+        document.createElement("div");
+
+    weed.className =
+        "seaweed";
+
+    weed.style.left =
+        random(0,100) + "%";
+
+    weed.style.height =
+        random(35,95) + "px";
+
+    weed.style.animationDelay =
+        random(0,4) + "s";
+
+    reef.appendChild(weed);
+}
+
+
+/* =========================================================
+   CORAL
+========================================================= */
+
+function createCoral(
+    position
+) {
+
+    const coral =
+        document.createElement("div");
+
+    coral.className =
+        "coral";
+
+    coral.style.left =
+        position + "%";
+
+    for (
+        let i = 0;
+        i < 7;
+        i++
+    ) {
+
+        const branch =
+            document.createElement("span");
+
+        branch.style.left =
+            random(5,65) + "px";
+
+        branch.style.height =
+            random(25,70) + "px";
+
+        branch.style.transform =
+            `rotate(${random(-30,30)}deg)`;
+
+        branch.style.animationDelay =
+            random(0,3) + "s";
+
+        coral.appendChild(
+            branch
+        );
+    }
+
+    reef.appendChild(
+        coral
+    );
+}
+
+createCoral(8);
+createCoral(73);
+
+
+/* =========================================================
+   HEART SHAPE
+=========================================================
+
+   This is deliberately made from a FIXED GRID.
+
+   #   #     #   #
+   ### ### ### ###
+   ###############
+    #############
+     ###########
+       #######
+        #####
+         ###
+          #
+
+   So there is no mathematical equation
+   that can fail to render.
+========================================================= */
+
+const heartPattern = [
+
+    "     111111     111111     ",
+
+    "   1111111111  1111111111   ",
+
+    "  111111111111111111111111  ",
+
+    " 11111111111111111111111111 ",
+
+    "1111111111111111111111111111",
+
+    "1111111111111111111111111111",
+
+    "1111111111111111111111111111",
+
+    " 11111111111111111111111111 ",
+
+    "  111111111111111111111111  ",
+
+    "   1111111111111111111111   ",
+
+    "    11111111111111111111    ",
+
+    "      1111111111111111      ",
+
+    "        111111111111        ",
+
+    "         1111111111         ",
+
+    "          11111111          ",
+
+    "           111111           ",
+
+    "            1111            ",
+
+    "             11             "
+
+];
+
+
+/* =========================================================
+   CREATE HEART FISH
+========================================================= */
+
+function createFishHeart() {
+
+    heartGrid.innerHTML = "";
+
+    const rows =
+        heartPattern.length;
+
+    const cols =
+        heartPattern[0].length;
+
+    const gridWidth =
+        heartGrid.clientWidth;
+
+    const gridHeight =
+        heartGrid.clientHeight;
+
+
+    /*
+       Responsive fish size
+    */
+
+    let fishWidth;
+
+    if (
+        window.innerWidth <= 600
+    ) {
+
+        fishWidth = 14;
+
+    } else if (
+        window.innerWidth <= 900
+    ) {
+
+        fishWidth = 20;
+
+    } else {
+
+        fishWidth = 25;
+
+    }
+
+
+    /*
+       Calculate spacing.
+    */
+
+    const xSpacing =
+        Math.min(
+            fishWidth + 2,
+            gridWidth / cols
+        );
+
+    const ySpacing =
+        Math.min(
+            fishWidth * .85,
+            gridHeight / rows
+        );
+
+
+    /*
+       Center the heart.
+    */
+
+    const actualWidth =
+        cols * xSpacing;
+
+    const actualHeight =
+        rows * ySpacing;
+
+    const startX =
+        (gridWidth -
+            actualWidth) / 2;
+
+    const startY =
+        (gridHeight -
+            actualHeight) / 2;
+
+
+    let counter = 0;
+
+
+    /*
+       Read every cell.
+    */
+
+    heartPattern.forEach(
+        (row, rowIndex) => {
+
+            [...row].forEach(
+                (cell, columnIndex) => {
+
+                    if (
+                        cell !== "1"
+                    ) {
+                        return;
+                    }
+
+
+                    const fish =
+                        document.createElement(
+                            "div"
+                        );
+
+                    fish.className =
+                        "heart-fish";
+
+
+                    /*
+                       Pick fish color.
+                    */
+
+                    const color =
+                        fishColors[
+                            counter %
+                            fishColors.length
+                        ];
+
+
+                    /*
+                       Pick SVG.
+                    */
+
+                    let svg =
+                        fishSVGs[
+                            counter %
+                            fishSVGs.length
+                        ];
+
+
+                    svg =
+                        svg.replaceAll(
+                            "COLOR",
+                            color
+                        );
+
+
+                    fish.innerHTML = `
+
+                        <div
+                            class="heart-fish-inner"
+                        >
+
+                            ${svg}
+
+                        </div>
+
+                    `;
+
+
+                    /*
+                       Position.
+                    */
+
+                    const x =
+                        startX +
+                        columnIndex *
+                        xSpacing +
+                        xSpacing / 2;
+
+                    const y =
+                        startY +
+                        rowIndex *
+                        ySpacing +
+                        ySpacing / 2;
+
+
+                    fish.style.left =
+                        x + "px";
+
+                    fish.style.top =
+                        y + "px";
+
+
+                    /*
+                       Every fish gets
+                       slightly different movement.
+                    */
+
+                    fish.style.setProperty(
+                        "--fish-speed",
+                        random(1.5,3.2) + "s"
+                    );
+
+
+                    /*
+                       Different entrance delays.
+                    */
+
+                    fish.style.transitionDelay =
+                        (
+                            counter *
+                            .018
+                        ) + "s";
+
+
+                    /*
+                       Slight rotations.
+                    */
+
+                    fish.querySelector(
+                        ".heart-fish-inner"
+                    ).style.transform =
+                        `rotate(
+                            ${random(-8,8)}deg
+                        )`;
+
+
+                    heartGrid.appendChild(
+                        fish
+                    );
+
+
+                    counter++;
+
+                }
+            );
+
+        }
+    );
+}
+
+
+/* =========================================================
+   FLOATING HEARTS
+========================================================= */
+
+function floatingHearts() {
+
+    for (
+        let i = 0;
+        i < 25;
+        i++
+    ) {
+
+        setTimeout(
+            () => {
+
+                const heart =
+                    document.createElement(
+                        "div"
+                    );
+
+                heart.className =
+                    "float-heart";
+
+                heart.textContent =
+                    Math.random() > .4
+                        ? "♥"
+                        : "♡";
+
+                heart.style.left =
+                    random(10,90) + "vw";
+
+                heart.style.top =
+                    random(65,90) + "vh";
+
+                heart.style.setProperty(
+                    "--size",
+                    random(12,25) + "px"
+                );
+
+                heart.style.setProperty(
+                    "--move",
+                    random(-70,70) + "px"
+                );
+
+                document.body.appendChild(
+                    heart
+                );
+
+                setTimeout(
+                    () => heart.remove(),
+                    3200
+                );
+
+            },
+            i * 130
+        );
+    }
 }
 
 
@@ -2848,379 +2379,184 @@ for(
    REVEAL
 ========================================================= */
 
-const reveal =
-    document.getElementById("reveal");
+let revealed = false;
 
-const formation =
-    document.getElementById("formation");
+function revealDhari() {
 
-const close =
-    document.getElementById("close");
+    if (revealed) {
+        return;
+    }
 
-let found = false;
-
-
-/* =========================================================
-   LETTER PATTERNS
-========================================================= */
-
-const patterns = {
-
-    I:[
-        "11111",
-        "00100",
-        "00100",
-        "00100",
-        "00100",
-        "00100",
-        "11111"
-    ],
-
-    HEART:[
-        "01110",
-        "11111",
-        "11111",
-        "11111",
-        "01110",
-        "00100",
-        "00000"
-    ],
-
-    Y:[
-        "10001",
-        "10001",
-        "01010",
-        "00100",
-        "00100",
-        "00100",
-        "00100"
-    ],
-
-    O:[
-        "01110",
-        "10001",
-        "10001",
-        "10001",
-        "10001",
-        "10001",
-        "01110"
-    ],
-
-    U:[
-        "10001",
-        "10001",
-        "10001",
-        "10001",
-        "10001",
-        "10001",
-        "01110"
-    ]
-
-};
+    revealed = true;
 
 
-/* =========================================================
-   FORMATION FISH
-========================================================= */
+    /*
+       Enter love mode.
+    */
 
-function formationFish(
-    x,
-    y,
-    color,
-    delay
-){
-
-    const fish =
-        document.createElement("div");
-
-    fish.className =
-        "formation-fish";
-
-    fish.style.setProperty(
-        "--x",
-        x + "%"
+    document.body.classList.add(
+        "love-mode"
     );
 
-    fish.style.setProperty(
-        "--y",
-        y + "%"
+    hint.classList.add(
+        "hide"
     );
 
-    fish.style.setProperty(
-        "--size",
-        "clamp(16px,3vw,34px)"
-    );
 
-    fish.style.setProperty(
-        "--fromX",
-        random(-70,70) + "vw"
-    );
+    /*
+       Stop all reef fish.
+    */
 
-    fish.style.setProperty(
-        "--fromY",
-        random(-60,60) + "vh"
-    );
+    document
+        .querySelectorAll(
+            "#reef .fish"
+        )
+        .forEach(
+            fish => {
 
-    fish.style.setProperty(
-        "--rotation",
-        random(-30,30) + "deg"
-    );
+                fish.style.animationPlayState =
+                    "paused";
 
-    fish.style.setProperty(
-        "--delay",
-        delay + "s"
-    );
-
-    fish.style.color =
-        color;
-
-    fish.innerHTML = `
-
-        <svg viewBox="0 0 100 55">
-
-            <use href="#smallfish"></use>
-
-        </svg>
-
-    `;
-
-    formation.appendChild(
-        fish
-    );
-}
-
-
-/* =========================================================
-   DRAW LETTER
-========================================================= */
-
-function drawLetter(
-    pattern,
-    startX,
-    startY,
-    cellX,
-    cellY,
-    color,
-    delay
-){
-
-    for(
-        let row=0;
-        row<pattern.length;
-        row++
-    ){
-
-        for(
-            let col=0;
-            col<pattern[row].length;
-            col++
-        ){
-
-            if(
-                pattern[row][col] === "1"
-            ){
-
-                formationFish(
-
-                    startX +
-                    col * cellX,
-
-                    startY +
-                    row * cellY,
-
-                    color,
-
-                    delay +
-                    (row+col)*.025
-
-                );
             }
-        }
-    }
+        );
+
+
+    /*
+       Fade normal fish.
+    */
+
+    document
+        .querySelectorAll(
+            "#reef .fish:not(.dhari)"
+        )
+        .forEach(
+            (fish, index) => {
+
+                setTimeout(
+                    () => {
+
+                        fish.style.opacity =
+                            "0";
+
+                    },
+                    index * 3
+                );
+
+            }
+        );
+
+
+    /*
+       Fade Dhari.
+    */
+
+    setTimeout(
+        () => {
+
+            dhari.style.opacity =
+                "0";
+
+        },
+        300
+    );
+
+
+    /*
+       IMPORTANT:
+       Build the heart AFTER
+       the container exists.
+    */
+
+    createFishHeart();
+
+
+    /*
+       Show love screen.
+    */
+
+    setTimeout(
+        () => {
+
+            loveScreen.classList.add(
+                "show"
+            );
+
+            floatingHearts();
+
+        },
+        350
+    );
 }
 
 
 /* =========================================================
-   BUILD I LOVE YOU
-========================================================= */
-
-function buildFormation(){
-
-    formation.innerHTML = "";
-
-    const mobile =
-        window.innerWidth < 650;
-
-
-    if(!mobile){
-
-        drawLetter(
-            patterns.I,
-            8,
-            25,
-            2.4,
-            6.7,
-            "#79ddd2",
-            .1
-        );
-
-        drawLetter(
-            patterns.HEART,
-            25,
-            25,
-            2.8,
-            6.7,
-            "#ff7899",
-            .55
-        );
-
-        drawLetter(
-            patterns.Y,
-            47,
-            25,
-            2.8,
-            6.7,
-            "#ffd16b",
-            1
-        );
-
-        drawLetter(
-            patterns.O,
-            65,
-            25,
-            2.8,
-            6.7,
-            "#67cfff",
-            1.35
-        );
-
-        drawLetter(
-            patterns.U,
-            83,
-            25,
-            2.8,
-            6.7,
-            "#8de7ba",
-            1.7
-        );
-
-    }else{
-
-        drawLetter(
-            patterns.I,
-            14,
-            12,
-            5,
-            8,
-            "#79ddd2",
-            .1
-        );
-
-        drawLetter(
-            patterns.HEART,
-            55,
-            12,
-            5,
-            8,
-            "#ff7899",
-            .55
-        );
-
-        drawLetter(
-            patterns.Y,
-            11,
-            55,
-            5,
-            8,
-            "#ffd16b",
-            1
-        );
-
-        drawLetter(
-            patterns.O,
-            38,
-            55,
-            5,
-            8,
-            "#67cfff",
-            1.3
-        );
-
-        drawLetter(
-            patterns.U,
-            65,
-            55,
-            5,
-            8,
-            "#8de7ba",
-            1.6
-        );
-    }
-}
-
-
-buildFormation();
-
-
-/* =========================================================
-   FIND DHARI
+   CLICK DHARI
 ========================================================= */
 
 dhari.addEventListener(
     "click",
-    ()=>{
-
-        if(found){
-            return;
-        }
-
-        found = true;
-
-        buildFormation();
-
-        reveal.classList.add(
-            "active"
-        );
-
-        document
-            .querySelectorAll(
-                ".reef .fish"
-            )
-            .forEach(
-                fish=>{
-                    fish.style.animationPlayState =
-                        "paused";
-                }
-            );
-    }
+    revealDhari
 );
 
 
 /* =========================================================
-   CLOSE
+   BACK TO REEF
 ========================================================= */
 
-close.addEventListener(
-    "click",
-    ()=>{
+function backToReef() {
 
-        reveal.classList.remove(
-            "active"
-        );
+    loveScreen.classList.remove(
+        "show"
+    );
 
-        found = false;
 
-        document
-            .querySelectorAll(
-                ".reef .fish"
-            )
-            .forEach(
-                fish=>{
-                    fish.style.animationPlayState =
-                        "";
-                }
+    setTimeout(
+        () => {
+
+            document.body.classList.remove(
+                "love-mode"
             );
-    }
+
+            /*
+               Restore fish.
+            */
+
+            document
+                .querySelectorAll(
+                    "#reef .fish"
+                )
+                .forEach(
+                    fish => {
+
+                        fish.style.opacity =
+                            "";
+
+                        fish.style.animationPlayState =
+                            "running";
+
+                    }
+                );
+
+
+            dhari.style.opacity =
+                "";
+
+
+            hint.classList.remove(
+                "hide"
+            );
+
+
+            revealed = false;
+
+        },
+        800
+    );
+}
+
+backButton.addEventListener(
+    "click",
+    backToReef
 );
 
 
@@ -3230,15 +2566,17 @@ close.addEventListener(
 
 document.addEventListener(
     "keydown",
-    event=>{
+    event => {
 
-        if(
+        if (
             event.key === "Escape" &&
-            found
-        ){
+            revealed
+        ) {
 
-            close.click();
+            backToReef();
+
         }
+
     }
 );
 
@@ -3249,11 +2587,14 @@ document.addEventListener(
 
 window.addEventListener(
     "resize",
-    ()=>{
+    () => {
 
-        if(!found){
-            buildFormation();
+        if (revealed) {
+
+            createFishHeart();
+
         }
+
     }
 );
 
