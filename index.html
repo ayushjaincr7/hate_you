@@ -1,2604 +1,1178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>The Reef 🐠</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
-  rel="stylesheet"
->
-
-<style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html,
-body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-body {
-    background:
-        radial-gradient(
-            ellipse at 50% 0%,
-            rgba(55, 180, 220, .22),
-            transparent 45%
-        ),
-        linear-gradient(
-            to bottom,
-            #031c32,
-            #052e4b 42%,
-            #031d34 72%,
-            #010c18
-        );
-
-    color: white;
-
-    font-family: Inter, sans-serif;
-}
-
-/* =========================================================
-   OCEAN LIGHT
-========================================================= */
-
-.ocean-light {
-
-    position: fixed;
-
-    inset: -30%;
-
-    pointer-events: none;
-
-    background:
-        conic-gradient(
-            from 180deg,
-            transparent,
-            rgba(130,230,255,.07),
-            transparent,
-            rgba(130,230,255,.05),
-            transparent
-        );
-
-    filter: blur(25px);
-
-    animation:
-        oceanMove 10s ease-in-out infinite alternate;
-
-    z-index: 1;
-}
-
-@keyframes oceanMove {
-
-    from {
-        transform:
-            translateX(-3%)
-            rotate(-2deg);
-    }
-
-    to {
-        transform:
-            translateX(3%)
-            rotate(2deg);
-    }
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header {
-
-    position: fixed;
-
-    top: 24px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    width: 90%;
-
-    text-align: center;
-
-    z-index: 100;
-
-    transition:
-        opacity .7s ease;
-}
-
-.header h1 {
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        clamp(38px, 7vw, 64px);
-
-    font-weight: 500;
-
-    letter-spacing: .04em;
-
-    text-shadow:
-        0 0 15px rgba(255,255,255,.15),
-        0 0 35px rgba(80,200,255,.2);
-}
-
-.header p {
-
-    margin-top: 4px;
-
-    font-size: 10px;
-
-    letter-spacing: .18em;
-
-    text-transform: uppercase;
-
-    color:
-        rgba(220,245,255,.55);
-}
-
-body.love-mode .header {
-    opacity: .18;
-}
-
-/* =========================================================
-   REEF
-========================================================= */
-
-#reef {
-
-    position: fixed;
-
-    inset: 0;
-
-    overflow: hidden;
-
-    z-index: 5;
-}
-
-/* =========================================================
-   HINT
-========================================================= */
-
-.hint {
-
-    position: fixed;
-
-    bottom: 24px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    width: 90%;
-
-    text-align: center;
-
-    color:
-        rgba(220,245,255,.62);
-
-    font-size: 10px;
-
-    letter-spacing: .1em;
-
-    z-index: 100;
-
-    transition:
-        opacity .6s ease,
-        transform .6s ease;
-}
-
-.hint.hide {
-
-    opacity: 0;
-
-    transform:
-        translateX(-50%)
-        translateY(15px);
-}
-
-/* =========================================================
-   BUBBLES
-========================================================= */
-
-.bubble {
-
-    position: absolute;
-
-    bottom: -30px;
-
-    border:
-        1px solid
-        rgba(190,240,255,.3);
-
-    border-radius: 50%;
-
-    background:
-        rgba(170,235,255,.04);
-
-    animation:
-        bubbleRise
-        linear
-        infinite;
-
-    pointer-events: none;
-
-    z-index: 2;
-}
-
-@keyframes bubbleRise {
-
-    0% {
-
-        transform:
-            translateY(0)
-            translateX(0);
-
-        opacity: 0;
-    }
-
-    10% {
-        opacity: .6;
-    }
-
-    50% {
-
-        transform:
-            translateY(-50vh)
-            translateX(20px);
-    }
-
-    100% {
-
-        transform:
-            translateY(-115vh)
-            translateX(-20px);
-
-        opacity: 0;
-    }
-}
-
-/* =========================================================
-   PARTICLES
-========================================================= */
-
-.particle {
-
-    position: absolute;
-
-    width: 2px;
-
-    height: 2px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(200,245,255,.5);
-
-    box-shadow:
-        0 0 6px
-        rgba(150,230,255,.5);
-
-    animation:
-        particleFloat
-        linear
-        infinite;
-
-    pointer-events: none;
-
-    z-index: 3;
-}
-
-@keyframes particleFloat {
-
-    from {
-
-        transform:
-            translateY(0);
-
-        opacity: 0;
-    }
-
-    20% {
-        opacity: .6;
-    }
-
-    to {
-
-        transform:
-            translateY(-90px);
-
-        opacity: 0;
-    }
-}
-
-/* =========================================================
-   NORMAL FISH
-========================================================= */
-
-.fish {
-
-    position: absolute;
-
-    width: 60px;
-
-    height: 38px;
-
-    border: 0;
-
-    padding: 0;
-
-    background: transparent;
-
-    cursor: pointer;
-
-    z-index: 20;
-
-    transform-origin: center;
-
-    filter:
-        drop-shadow(
-            0 4px 5px
-            rgba(0,0,0,.18)
-        );
-
-    transition:
-        opacity .8s ease;
-}
-
-.fish svg {
-
-    width: 100%;
-
-    height: 100%;
-
-    overflow: visible;
-
-    pointer-events: none;
-}
-
-.fish-name {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: -17px;
-
-    transform:
-        translateX(-50%)
-        translateY(5px);
-
-    white-space: nowrap;
-
-    padding:
-        3px 7px;
-
-    border-radius: 20px;
-
-    background:
-        rgba(0,15,30,.75);
-
-    border:
-        1px solid
-        rgba(180,230,255,.15);
-
-    color:
-        rgba(235,250,255,.8);
-
-    font-size: 9px;
-
-    opacity: 0;
-
-    transition:
-        opacity .25s ease,
-        transform .25s ease;
-
-    pointer-events: none;
-
-    backdrop-filter: blur(5px);
-}
-
-.fish:hover .fish-name {
-
-    opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
-}
-
-/* =========================================================
-   SWIMMING
-========================================================= */
-
-.fish.left {
-
-    animation:
-        swimLeft
-        var(--duration)
-        linear
-        infinite;
-
-    animation-delay:
-        var(--delay);
-}
-
-.fish.right {
-
-    animation:
-        swimRight
-        var(--duration)
-        linear
-        infinite;
-
-    animation-delay:
-        var(--delay);
-}
-
-@keyframes swimLeft {
-
-    from {
-
-        transform:
-            translateX(110vw)
-            translateY(var(--y));
-    }
-
-    to {
-
-        transform:
-            translateX(-150px)
-            translateY(
-                calc(
-                    var(--y) +
-                    var(--drift)
-                )
-            );
-    }
-}
-
-@keyframes swimRight {
-
-    from {
-
-        transform:
-            translateX(-150px)
-            translateY(var(--y))
-            scaleX(-1);
-    }
-
-    to {
-
-        transform:
-            translateX(110vw)
-            translateY(
-                calc(
-                    var(--y) +
-                    var(--drift)
-                )
-            )
-            scaleX(-1);
-    }
-}
-
-/* =========================================================
-   DHARI
-========================================================= */
-
-.fish.dhari {
-
-    width: 82px;
-
-    height: 58px;
-
-    z-index: 50;
-
-    filter:
-        drop-shadow(
-            0 0 5px
-            rgba(255,160,200,.5)
-        )
-        drop-shadow(
-            0 0 18px
-            rgba(255,80,150,.25)
-        );
-}
-
-.heart-body {
-
-    position: absolute;
-
-    left: 15px;
-
-    top: 8px;
-
-    width: 34px;
-
-    height: 34px;
-
-    background:
-        radial-gradient(
-            circle at 30% 25%,
-            rgba(255,240,245,.8),
-            rgba(255,170,205,.65),
-            rgba(235,70,125,.45)
-        );
-
-    border-radius:
-        50% 50% 50% 8%;
-
-    transform:
-        rotate(-45deg);
-
-    opacity: .72;
-
-    box-shadow:
-        0 0 7px
-        rgba(255,160,200,.6),
-
-        0 0 18px
-        rgba(255,90,150,.35);
-
-    animation:
-        dhariPulse
-        3s
-        ease-in-out
-        infinite;
-}
-
-.heart-body::before,
-.heart-body::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 34px;
-
-    height: 34px;
-
-    background: inherit;
-
-    border-radius: 50%;
-
-    box-shadow: inherit;
-}
-
-.heart-body::before {
-
-    left: 0;
-
-    top: -17px;
-}
-
-.heart-body::after {
-
-    left: 17px;
-
-    top: 0;
-}
-
-.heart-tail {
-
-    position: absolute;
-
-    right: 1px;
-
-    top: 20px;
-
-    width: 27px;
-
-    height: 20px;
-
-    background:
-        rgba(255,140,180,.5);
-
-    clip-path:
-        polygon(
-            0 50%,
-            100% 0,
-            82% 50%,
-            100% 100%
-        );
-
-    animation:
-        tailMove
-        .7s
-        ease-in-out
-        infinite alternate;
-}
-
-.heart-eye {
-
-    position: absolute;
-
-    left: 46px;
-
-    top: 21px;
-
-    width: 4px;
-
-    height: 4px;
-
-    background:
-        rgba(40,10,25,.7);
-
-    border-radius: 50%;
-}
-
-.heart-shine {
-
-    position: absolute;
-
-    left: 23px;
-
-    top: 13px;
-
-    width: 8px;
-
-    height: 4px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255,255,255,.55);
-
-    transform:
-        rotate(-35deg);
-}
-
-@keyframes dhariPulse {
-
-    0%,
-    100% {
-
-        transform:
-            rotate(-45deg)
-            scale(.94);
-
-        opacity: .55;
-    }
-
-    50% {
-
-        transform:
-            rotate(-45deg)
-            scale(1.05);
-
-        opacity: .78;
-    }
-}
-
-@keyframes tailMove {
-
-    from {
-        transform: rotate(-8deg);
-    }
-
-    to {
-        transform: rotate(8deg);
-    }
-}
-
-/* =========================================================
-   SEABED
-========================================================= */
-
-.seabed {
-
-    position: absolute;
-
-    bottom: -5px;
-
-    left: -5%;
-
-    width: 110%;
-
-    height: 80px;
-
-    border-radius:
-        50% 50% 0 0;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #44322a,
-            #181218
-        );
-
-    z-index: 12;
-
-    opacity: .8;
-}
-
-/* =========================================================
-   SEAWEED
-========================================================= */
-
-.seaweed {
-
-    position: absolute;
-
-    bottom: 30px;
-
-    width: 5px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            to right,
-            #143c39,
-            #2d786c,
-            #123632
-        );
-
-    transform-origin: bottom;
-
-    animation:
-        weedMove
-        4s
-        ease-in-out
-        infinite alternate;
-
-    z-index: 13;
-}
-
-@keyframes weedMove {
-
-    from {
-        transform: rotate(-6deg);
-    }
-
-    to {
-        transform: rotate(7deg);
-    }
-}
-
-/* =========================================================
-   CORAL
-========================================================= */
-
-.coral {
-
-    position: absolute;
-
-    bottom: 28px;
-
-    width: 80px;
-
-    height: 80px;
-
-    z-index: 14;
-}
-
-.coral span {
-
-    position: absolute;
-
-    bottom: 0;
-
-    width: 10px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            to right,
-            #613246,
-            #a85b72,
-            #643347
-        );
-
-    transform-origin: bottom;
-
-    animation:
-        coralMove
-        3s
-        ease-in-out
-        infinite alternate;
-}
-
-@keyframes coralMove {
-
-    from {
-        transform: rotate(-5deg);
-    }
-
-    to {
-        transform: rotate(6deg);
-    }
-}
-
-/* =========================================================
-   ❤️ LOVE SCREEN
-========================================================= */
-
-#loveScreen {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 500;
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    pointer-events: none;
-
-    transition:
-        opacity 1s ease,
-        visibility 1s ease;
-
-    background:
-        radial-gradient(
-            circle at 50% 43%,
-            rgba(255,80,150,.10),
-            transparent 38%
-        );
-}
-
-#loveScreen.show {
-
-    opacity: 1;
-
-    visibility: visible;
-
-    pointer-events: auto;
-}
-
-/* =========================================================
-   BIG FISH HEART
-========================================================= */
-
-#fishHeart {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 46%;
-
-    transform:
-        translate(-50%,-50%);
-
-    width:
-        min(82vw, 620px);
-
-    height:
-        min(68vh, 560px);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-/* heart grid */
-
-.heart-grid {
-
-    position: relative;
-
-    width: 100%;
-
-    height: 100%;
-}
-
-/* =========================================================
-   INDIVIDUAL HEART FISH
-========================================================= */
-
-.heart-fish {
-
-    position: absolute;
-
-    width: 28px;
-
-    height: 18px;
-
-    opacity: 0;
-
-    transform:
-        translate(-50%,-50%)
-        scale(.1);
-
-    transition:
-        opacity .65s ease,
-        transform .8s
-        cubic-bezier(.2,.8,.2,1);
-
-    filter:
-        drop-shadow(
-            0 0 5px
-            rgba(100,220,255,.55)
-        );
-}
-
-#loveScreen.show .heart-fish {
-
-    opacity: .92;
-
-    transform:
-        translate(-50%,-50%)
-        scale(1);
-}
-
-.heart-fish svg {
-
-    width: 100%;
-
-    height: 100%;
-
-    overflow: visible;
-}
-
-/* subtle swimming */
-
-.heart-fish-inner {
-
-    animation:
-        heartFishSwim
-        var(--fish-speed)
-        ease-in-out
-        infinite alternate;
-}
-
-@keyframes heartFishSwim {
-
-    from {
-        transform:
-            translateY(-2px)
-            rotate(-3deg);
-    }
-
-    to {
-        transform:
-            translateY(2px)
-            rotate(3deg);
-    }
-}
-
-/* =========================================================
-   HEART GLOW
-========================================================= */
-
-.heart-glow {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 46%;
-
-    transform:
-        translate(-50%,-50%);
-
-    width:
-        min(55vw, 420px);
-
-    height:
-        min(50vh, 400px);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(255,100,160,.13),
-            transparent 65%
-        );
-
-    filter: blur(25px);
-
-    pointer-events: none;
-
-    animation:
-        heartGlow
-        3s
-        ease-in-out
-        infinite;
-}
-
-@keyframes heartGlow {
-
-    0%,
-    100% {
-        transform:
-            translate(-50%,-50%)
-            scale(.92);
-    }
-
-    50% {
-        transform:
-            translate(-50%,-50%)
-            scale(1.08);
-    }
-}
-
-/* =========================================================
-   LOVE TEXT
-========================================================= */
-
-.love-text {
-
-    position: absolute;
-
-    left: 50%;
-
-    bottom: 11%;
-
-    transform:
-        translateX(-50%)
-        translateY(15px);
-
-    text-align: center;
-
-    opacity: 0;
-
-    transition:
-        opacity 1s ease 1.2s,
-        transform 1s ease 1.2s;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        clamp(28px, 6vw, 46px);
-
-    white-space: nowrap;
-
-    color:
-        rgba(255,235,245,.94);
-
-    text-shadow:
-        0 0 12px
-        rgba(255,120,170,.55);
-}
-
-#loveScreen.show .love-text {
-
-    opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
-}
-
-.love-subtext {
-
-    display: block;
-
-    margin-top: 4px;
-
-    font-family: Inter, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: .18em;
-
-    text-transform: uppercase;
-
-    color:
-        rgba(220,245,255,.48);
-}
-
-/* =========================================================
-   BACK
-========================================================= */
-
-.back-button {
-
-    position: absolute;
-
-    left: 50%;
-
-    bottom: 3.5%;
-
-    transform:
-        translateX(-50%);
-
-    padding:
-        9px 19px;
-
-    border:
-        1px solid
-        rgba(255,170,200,.25);
-
-    border-radius: 999px;
-
-    background:
-        rgba(255,100,155,.07);
-
-    color:
-        rgba(255,225,238,.7);
-
-    font-family: Inter, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: .14em;
-
-    cursor: pointer;
-
-    opacity: 0;
-
-    transition:
-        opacity .8s ease 1.5s,
-        background .3s ease;
-}
-
-#loveScreen.show .back-button {
-    opacity: 1;
-}
-
-.back-button:hover {
-
-    background:
-        rgba(255,100,155,.16);
-
-    color: white;
-}
-
-/* =========================================================
-   FLOATING HEARTS
-========================================================= */
-
-.float-heart {
-
-    position: fixed;
-
-    z-index: 700;
-
-    pointer-events: none;
-
-    color:
-        rgba(255,130,175,.7);
-
-    font-size:
-        var(--size);
-
-    animation:
-        floatHeart
-        3s
-        ease-out
-        forwards;
-
-    text-shadow:
-        0 0 10px
-        rgba(255,100,160,.55);
-}
-
-@keyframes floatHeart {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            translateY(0)
-            scale(.5);
-    }
-
-    15% {
-        opacity: .8;
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            translateY(-180px)
-            translateX(var(--move))
-            scale(1.1);
-    }
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-    .header {
-        top: 18px;
-    }
-
-    .header h1 {
-        font-size: 40px;
-    }
-
-    .header p {
-        font-size: 8px;
-    }
-
-    .fish {
-        width: 50px;
-        height: 32px;
-    }
-
-    .fish.dhari {
-        width: 72px;
-        height: 52px;
-    }
-
-    #fishHeart {
-
-        width: 94vw;
-
-        height: 58vh;
-
-        top: 43%;
-    }
-
-    .heart-fish {
-
-        width: 18px;
-
-        height: 12px;
-    }
-
-    .love-text {
-
-        bottom: 11%;
-
-        font-size: 29px;
-    }
-
-    .back-button {
-
-        bottom: 3%;
-
-        font-size: 8px;
-    }
-}
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-
-        animation-duration:
-            .01ms !important;
-
-        animation-iteration-count:
-            1 !important;
-    }
-}
-
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>For Dhari</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Caveat:wght@500&family=Playfair+Display:wght@500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #f5ead6;
+            --wine: #5a1427;
+            --pink: #e8a3b5;
+            --moss: #6f8b5e;
+            --gold: #e3b04b;
+            --c: min(26vh, 19vw);
+            --sx: 56vw;
+            --sb: 11%
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0
+        }
+
+        html,
+        body {
+            height: 100%;
+            background: #0b0506;
+            overflow: hidden;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            color: var(--cream)
+        }
+
+        #st {
+            position: fixed;
+            inset: 0;
+            overflow: hidden
+        }
+
+        #w {
+            position: absolute;
+            inset: 0;
+            transform-origin: 0 0;
+            transition: transform 4s cubic-bezier(.45, 0, .25, 1)
+        }
+
+        #w>*,
+        #w i {
+            position: absolute
+        }
+
+        .room {
+            transition: opacity 8s
+        }
+
+        #wall {
+            inset: -9% -9% 27% -9%;
+            background: radial-gradient(ellipse 60% 70% at 25% 35%, #5a2c1b, #2b1311 65%, #170b0c)
+        }
+
+        #floor {
+            inset: 72% -9% -9% -9%;
+            background: repeating-linear-gradient(95deg, #3b2113 0 64px, #2a170c 64px 66px)
+        }
+
+        #rug {
+            left: 44%;
+            top: 79%;
+            width: 38%;
+            height: 17%;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, #6b1f30 40%, #4a1422 41% 78%, #c9a36a 79% 82%, #4a1422 83%)
+        }
+
+        #win {
+            left: 56%;
+            top: 6%;
+            width: 17%;
+            height: 38%;
+            border: 1.1vmin solid #4a2a18;
+            background: radial-gradient(circle at 68% 28%, #fff6d8 0 2.5%, #dfe7f7 3.5%, transparent 14%), #1b2a45
+        }
+
+        #win:before,
+        #win:after {
+            content: "";
+            position: absolute;
+            background: #4a2a18
+        }
+
+        #win:before {
+            left: 48%;
+            top: 0;
+            bottom: 0;
+            width: 1vmin
+        }
+
+        #win:after {
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1vmin
+        }
+
+        #beam {
+            left: 54%;
+            top: 12%;
+            width: 26%;
+            height: 64%;
+            clip-path: polygon(14% 0, 86% 0, 100% 100%, 0 100%);
+            background: rgba(190, 208, 255, .1);
+            transition: background 8s
+        }
+
+        .tr #beam {
+            background: rgba(255, 214, 140, .28)
+        }
+
+        #fy {
+            left: 2%;
+            top: 1%;
+            width: 96%;
+            height: 5%;
+            border-bottom: 1px solid rgba(255, 226, 160, .25);
+            border-radius: 0 0 50% 50%/0 0 100% 100%
+        }
+
+        #fy:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, #ffe2a0 0 .3vmin, transparent .55vmin) 0 0/2.6vmin 100%;
+            animation: tw2 4s infinite alternate
+        }
+
+        @keyframes tw2 {
+            to {
+                opacity: .45
+            }
+        }
+
+        #case {
+            left: 3%;
+            top: 5%;
+            width: 48%;
+            height: 64%;
+            background: #241108;
+            border: 1.2vmin solid #4b2814;
+            box-shadow: 0 0 5vmin #000 inset
+        }
+
+        .sh {
+            height: 33.3%;
+            display: flex;
+            align-items: flex-end;
+            gap: .5%;
+            padding: 0 1.5%;
+            border-bottom: 1.1vmin solid #3a1f10;
+            background: #170b06
+        }
+
+        .bk {
+            container-type: size;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px 2px 1px 1px;
+            cursor: pointer;
+            transition: translate .4s, filter 1.4s;
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4), inset 2px 0 3px rgba(255, 255, 255, .1), inset -3px 0 4px rgba(0, 0, 0, .4);
+            background-image: linear-gradient(95deg, rgba(255, 255, 255, .05), transparent 30%, rgba(0, 0, 0, .18))
+        }
+
+        .bk.hc {
+            background-image: linear-gradient(transparent 10%, rgba(227, 176, 75, .55) 10% 11.5%, transparent 11.5% 88%, rgba(227, 176, 75, .55) 88% 89.5%, transparent 89.5%), linear-gradient(95deg, rgba(255, 255, 255, .05), transparent 30%, rgba(0, 0, 0, .2))
+        }
+
+        .bk:hover {
+            translate: 0 -6px
+        }
+
+        .bk b {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-weight: 400;
+            white-space: nowrap;
+            font-size: min(40cqw, calc(var(--k)*100cqh))
+        }
+
+        .dof .bk:not(.f),
+        .dof .sb:not(.f) {
+            filter: blur(2px) brightness(.6)
+        }
+
+        .bk.f,
+        .sb.f {
+            translate: 0 -1.2vmin;
+            filter: drop-shadow(0 0 1.4vmin rgba(255, 214, 140, .6))
+        }
+
+        #vn {
+            inset: 0;
+            opacity: 0;
+            transition: opacity 8s;
+            pointer-events: none
+        }
+
+        .mg #vn {
+            opacity: 1
+        }
+
+        #tb {
+            left: 76%;
+            top: 62%;
+            width: 20%;
+            height: 2vmin;
+            background: #5a3118;
+            border-radius: 3px;
+            box-shadow: 0 1vmin 2vmin #000
+        }
+
+        #tb:before,
+        #tb:after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            width: 1.2vmin;
+            height: 15vmin;
+            background: #3e2210;
+            left: 8%
+        }
+
+        #tb:after {
+            left: auto;
+            right: 8%
+        }
+
+        #bo {
+            left: 78%;
+            top: 60.2%;
+            width: 9%;
+            height: 1.8%;
+            background: linear-gradient(90deg, #efe3c8 49%, #b9a982 50%, #efe3c8 51%);
+            transform: skewX(-14deg)
+        }
+
+        #lp {
+            left: 90%;
+            top: 51%;
+            width: 4.4%;
+            height: 11%;
+            background: linear-gradient(#e9c27a, #b8873b);
+            clip-path: polygon(18% 0, 82% 0, 100% 55%, 56% 55%, 56% 90%, 76% 100%, 24% 100%, 44% 90%, 44% 55%, 0 55%)
+        }
+
+        #lg {
+            left: 78%;
+            top: 36%;
+            width: 34%;
+            height: 46%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 200, 110, .34), transparent 65%);
+            animation: fl 5s infinite alternate
+        }
+
+        @keyframes fl {
+            to {
+                opacity: .7
+            }
+        }
+
+        #ch {
+            left: 84%;
+            top: 40%;
+            width: 12%;
+            height: 34%;
+            background: #6b1f30;
+            border-radius: 40% 40% 8% 8%;
+            box-shadow: inset 0 0 3vmin #000;
+            z-index: -1
+        }
+
+        #pl {
+            left: 52.5%;
+            top: 56%;
+            width: 5%;
+            height: 16%;
+            background: radial-gradient(ellipse 90% 60% at 50% 30%, #5f8250 60%, transparent 62%) top/100% 70% no-repeat, linear-gradient(#a8643e, #7c4328) bottom/70% 30% no-repeat
+        }
+
+        #g {
+            inset: -9%;
+            opacity: 0;
+            transition: opacity 9s;
+            background: radial-gradient(circle at 66% 14%, rgba(255, 228, 160, .9), transparent 22%), radial-gradient(ellipse 90% 30% at 30% 62%, #a9bf93 60%, transparent 61%), radial-gradient(ellipse 100% 34% at 75% 66%, #8fae7d 60%, transparent 61%), linear-gradient(#f9e5d5, #f4d2da 45%, #cfdcae 46%, #7f9f6e)
+        }
+
+        .tr #g {
+            opacity: 1
+        }
+
+        #path {
+            left: 30%;
+            top: 80%;
+            width: 52%;
+            height: 18%;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, #e9d3b0, #d8b98c);
+            opacity: 0;
+            transition: opacity 6s 3s
+        }
+
+        .gd #path {
+            opacity: .9
+        }
+
+        #sun {
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 66% 12%, rgba(255, 214, 140, .45), transparent 50%);
+            mix-blend-mode: screen;
+            opacity: 0;
+            transition: opacity 8s
+        }
+
+        .tr #sun {
+            opacity: 1
+        }
+
+        #fl {
+            inset: -9%;
+            z-index: 4;
+            pointer-events: none
+        }
+
+        .fl {
+            position: absolute;
+            pointer-events: auto;
+            translate: -50% -100%;
+            scale: 0;
+            transform-origin: 50% 100%;
+            transition: scale 2.6s cubic-bezier(.2, 1.2, .4, 1);
+            cursor: pointer
+        }
+
+        .gd .fl {
+            scale: 1
+        }
+
+        .fl svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            transform-origin: 50% 100%;
+            animation: sw 4s ease-in-out infinite alternate
+        }
+
+        @keyframes sw {
+            from {
+                rotate: -2.5deg
+            }
+
+            to {
+                rotate: 2.5deg
+            }
+        }
+
+        .vi {
+            width: 1px;
+            background: rgba(95, 130, 80, .7);
+            top: -9%;
+            z-index: 3
+        }
+
+        #cs {
+            left: var(--sx);
+            bottom: var(--sb);
+            width: var(--c);
+            height: calc(var(--c)*1.45);
+            z-index: 5
+        }
+
+        #cs>* {
+            position: absolute
+        }
+
+        #stk {
+            left: 8%;
+            bottom: 0;
+            width: 84%;
+            height: calc(var(--c)*.4);
+            display: flex;
+            flex-direction: column-reverse
+        }
+
+        .sb {
+            flex: 1;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(var(--c)*.062);
+            cursor: pointer;
+            border-radius: 2px;
+            box-shadow: inset 0 -2px 3px rgba(0, 0, 0, .4), 0 1px 2px #000;
+            transition: filter 1.4s;
+            container-type: normal
+        }
+
+        .nt {
+            right: 1%;
+            bottom: 4%;
+            width: calc(var(--c)*.1);
+            height: calc(var(--c)*.06);
+            background: #f3e6c7;
+            rotate: 8deg;
+            transform-origin: 0 100%;
+            transition: transform .5s;
+            overflow: hidden;
+            font: 500 calc(var(--c)*.011)/1.15 Caveat, cursive;
+            color: #5a1427;
+            padding: 1px;
+            z-index: 2;
+            cursor: pointer;
+            box-shadow: 0 1px 3px #0008
+        }
+
+        .nt:hover,
+        .nt.o {
+            transform: scale(3.4)
+        }
+
+        #cat {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            transition: transform 1s linear;
+            opacity: 0;
+            z-index: 3
+        }
+
+        #cat.on {
+            opacity: 1
+        }
+
+        #cat svg {
+            width: 100%;
+            display: block;
+            overflow: visible;
+            cursor: pointer
+        }
+
+        #cat.gl {
+            filter: drop-shadow(0 0 1.6vmin rgba(255, 206, 130, .55))
+        }
+
+        #cs svg g,
+        #cw * {
+            transform-box: fill-box
+        }
+
+        #sit {
+            display: none
+        }
+
+        #cat.sit #sit {
+            display: block
+        }
+
+        #cat.sit #wlk {
+            display: none
+        }
+
+        .ey {
+            transform-origin: center;
+            animation: bl 5s infinite
+        }
+
+        @keyframes bl {
+
+            0%,
+            93%,
+            100% {
+                scale: 1
+            }
+
+            96% {
+                scale: 1 .1
+            }
+        }
+
+        .er {
+            transform-origin: 50% 100%;
+            animation: ew 7s infinite
+        }
+
+        @keyframes ew {
+
+            0%,
+            90%,
+            100% {
+                rotate: 0deg
+            }
+
+            93% {
+                rotate: -9deg
+            }
+
+            96% {
+                rotate: 6deg
+            }
+        }
+
+        .tl {
+            transform-origin: 20% 90%;
+            animation: ta 3.6s ease-in-out infinite alternate
+        }
+
+        @keyframes ta {
+            from {
+                rotate: -6deg
+            }
+
+            to {
+                rotate: 7deg
+            }
+        }
+
+        .br {
+            transform-origin: 50% 100%;
+            animation: br 4s ease-in-out infinite alternate
+        }
+
+        @keyframes br {
+            to {
+                scale: 1 1.025
+            }
+        }
+
+        .hd {
+            transform-origin: 50% 100%;
+            animation: hh 9s ease-in-out infinite
+        }
+
+        @keyframes hh {
+
+            0%,
+            100% {
+                rotate: 0deg
+            }
+
+            30% {
+                rotate: -4deg
+            }
+
+            60% {
+                rotate: 5deg
+            }
+        }
+
+        .l1,
+        .l4,
+        .l2,
+        .l3 {
+            transform-origin: 50% 0
+        }
+
+        .wk .l1,
+        .wk .l4 {
+            animation: lg .45s infinite alternate
+        }
+
+        .wk .l2,
+        .wk .l3 {
+            animation: lg .45s infinite alternate-reverse
+        }
+
+        @keyframes lg {
+            from {
+                rotate: -20deg
+            }
+
+            to {
+                rotate: 20deg
+            }
+        }
+
+        .wk #cw {
+            animation: bob .45s infinite alternate
+        }
+
+        @keyframes bob {
+            to {
+                translate: 0 -3px
+            }
+        }
+
+        .lk #wlk .hd {
+            animation: none;
+            rotate: -14deg
+        }
+
+        .lc #wlk .hd {
+            animation: none;
+            scale: 1.12
+        }
+
+        .sn #wlk .hd {
+            animation: sn 1.1s 2 ease-in-out
+        }
+
+        @keyframes sn {
+            50% {
+                rotate: 16deg;
+                translate: 4px 8px
+            }
+        }
+
+        .pw #wlk {
+            rotate: -14deg;
+            transform-origin: 80% 100%
+        }
+
+        .pet .tl {
+            animation-duration: .6s
+        }
+
+        .pet .er {
+            animation-duration: 1s
+        }
+
+        .pet .ey {
+            animation: bl 1.4s 1
+        }
+
+        .cl #sit {
+            transform: scale(1, .82);
+            transform-origin: 50% 100%;
+            transition: transform 3s
+        }
+
+        .tn #sit {
+            animation: tn 2s
+        }
+
+        @keyframes tn {
+            50% {
+                transform: scaleX(-1)
+            }
+        }
+
+        .str #sit {
+            animation: ss 2.4s
+        }
+
+        @keyframes ss {
+            40% {
+                transform: scale(1.06, .9) translateY(4px)
+            }
+
+            70% {
+                transform: scale(.97, 1.07)
+            }
+        }
+
+        #pc {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 30;
+            pointer-events: none
+        }
+
+        #st:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 40;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 45%, rgba(8, 3, 4, .6));
+            transition: opacity 8s
+        }
+
+        .gd:before {
+            opacity: .25
+        }
+
+        #bk {
+            position: absolute;
+            inset: 0;
+            background: #0b0506;
+            z-index: 50;
+            transition: opacity 4s;
+            pointer-events: none
+        }
+
+        .in #bk {
+            opacity: 0
+        }
+
+        #cap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 7%;
+            text-align: center;
+            font: 500 clamp(22px, 4vmin, 40px) Caveat, cursive;
+            z-index: 46;
+            opacity: 0;
+            transition: opacity 1s;
+            pointer-events: none;
+            text-shadow: 0 0 12px #000
+        }
+
+        #cap.on {
+            opacity: 1
+        }
+
+        #tx {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 4%;
+            text-align: center;
+            z-index: 45;
+            color: var(--wine);
+            pointer-events: none;
+            padding: 0 5%;
+            text-shadow: 0 0 14px #fff8, 0 0 30px rgba(255, 235, 190, .8)
+        }
+
+        #tx h1 {
+            font: 500 clamp(34px, 7.5vmin, 86px)/1.1 Caveat, cursive;
+            font-weight: 500
+        }
+
+        #tx h1 span {
+            display: inline-block;
+            clip-path: inset(0 100% 0 0);
+            padding: 0 .1em .1em 0
+        }
+
+        #tx h1 span.on {
+            clip-path: inset(0);
+            transition: clip-path 2.8s steps(26)
+        }
+
+        #t3 {
+            font-size: clamp(15px, 2.3vmin, 24px);
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 3s
+        }
+
+        #t3.on {
+            opacity: 1
+        }
+
+        #ms {
+            margin-top: 2.4vmin;
+            min-height: 18vmin;
+            font-size: clamp(17px, 3.1vmin, 32px);
+            line-height: 1.5;
+            font-style: italic
+        }
+
+        #ms p {
+            opacity: 0;
+            transition: opacity 2.4s
+        }
+
+        #ms.on p {
+            opacity: 1
+        }
+
+        #ms small {
+            font-size: .62em
+        }
+
+        #tp {
+            position: fixed;
+            z-index: 70;
+            pointer-events: none;
+            background: rgba(30, 12, 16, .88);
+            color: var(--cream);
+            padding: .3em .7em;
+            border-radius: 4px;
+            font-size: 15px;
+            opacity: 0;
+            transition: opacity .2s;
+            white-space: nowrap
+        }
+
+        #cd {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            translate: -50% -50%;
+            z-index: 71;
+            background: var(--cream);
+            color: var(--wine);
+            padding: 1.4em 2em;
+            border-radius: 3px;
+            text-align: center;
+            font-style: italic;
+            font-size: 21px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .5s;
+            box-shadow: 0 0 40px #000a
+        }
+
+        #cd.on {
+            opacity: 1
+        }
+
+        #cd small {
+            display: block;
+            font: 500 17px Caveat;
+            margin-top: .4em;
+            opacity: .7
+        }
+
+        .ct {
+            position: fixed;
+            z-index: 60;
+            top: calc(12px + env(safe-area-inset-top, 0px));
+            right: 14px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(245, 234, 214, .4);
+            background: rgba(20, 8, 10, .5);
+            color: var(--cream);
+            font-size: 17px;
+            cursor: pointer
+        }
+
+        #rp {
+            top: auto;
+            bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+            right: auto;
+            left: 50%;
+            translate: -50% 0;
+            width: auto;
+            height: auto;
+            padding: .4em 1.2em;
+            border-radius: 20px;
+            font: italic 17px 'Cormorant Garamond';
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 3s;
+            color: var(--wine);
+            background: rgba(255, 246, 230, .6);
+            border-color: rgba(90, 20, 39, .4)
+        }
+
+        .end #rp {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        @media (max-aspect-ratio:4/5) {
+            :root {
+                --c: 46vw;
+                --sx: 27vw;
+                --sb: 15%
+            }
+
+            #win {
+                left: 30%;
+                top: 1.5%;
+                width: 40%;
+                height: 15%
+            }
+
+            #beam {
+                left: 20%;
+                width: 60%;
+                top: 8%;
+                height: 50%
+            }
+
+            #case {
+                left: 3%;
+                top: 19%;
+                width: 94%;
+                height: 42%
+            }
+
+            #tb {
+                left: 56%;
+                top: 68%;
+                width: 40%
+            }
+
+            #bo {
+                left: 60%;
+                top: 66.2%;
+                width: 18%
+            }
+
+            #lp {
+                left: 84%;
+                top: 57%;
+                width: 9%
+            }
+
+            #lg {
+                left: 55%;
+                top: 48%
+            }
+
+            #ch {
+                left: 72%;
+                top: 52%;
+                width: 24%;
+                height: 32%
+            }
+
+            #pl {
+                left: 4%;
+                top: 62%;
+                width: 9%;
+                height: 11%
+            }
+
+            #rug {
+                left: 6%;
+                top: 84%;
+                width: 88%
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+
+            .fl svg,
+            .tl,
+            .hd {
+                animation: none
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-<div class="ocean-light"></div>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="header">
-
-    <h1>The Reef</h1>
-
-    <p>
-        somewhere beneath the waves,
-        someone is waiting
-    </p>
-
-</header>
-
-
-<!-- =====================================================
-     REEF
-===================================================== -->
-
-<div id="reef"></div>
-
-
-<!-- =====================================================
-     HINT
-===================================================== -->
-
-<div
-    class="hint"
-    id="hint"
->
-    Everyone here has a name...
-    but one little heart is hiding in plain sight. 🌊♡
-</div>
-
-
-<!-- =====================================================
-     LOVE SCREEN
-===================================================== -->
-
-<section id="loveScreen">
-
-    <div class="heart-glow"></div>
-
-    <div id="fishHeart">
-
-        <div
-            class="heart-grid"
-            id="heartGrid"
-        ></div>
-
+    <div id="st">
+        <div id="w">
+            <div id="wall" class="room"></div>
+            <div id="floor" class="room"></div>
+            <div id="rug" class="room"></div>
+            <div id="win" class="room"></div>
+            <div id="beam" class="room"></div>
+            <div id="fy" class="room"></div>
+            <div id="ch" class="room"></div>
+            <div id="tb" class="room"></div>
+            <div id="bo" class="room"></div>
+            <div id="lp" class="room"></div>
+            <div id="lg" class="room"></div>
+            <div id="pl" class="room"></div>
+            <div id="g"><i id="path"></i></div>
+            <div id="case" class="room">
+                <div id="vn"></div>
+            </div>
+            <div id="fl"></div>
+            <div id="sun"></div>
+            <div id="cs">
+                <div id="stk"></div>
+                <div class="nt" data-t="A small note" id="nt">“I wanted to build you a little world from the things you
+                    love.”</div>
+                <div id="cat"><svg viewBox="0 0 200 200">
+                        <defs>
+                            <filter id="fz" x="-5%" y="-5%" width="110%" height="110%">
+                                <feTurbulence baseFrequency=".8" numOctaves="2" result="n" />
+                                <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" />
+                            </filter>
+                        </defs>
+                        <g id="wlk" filter="url(#fz)">
+                            <g id="cw" style="transform-origin:100px 100px">
+                                <path class="tl" d="M36 140C6 135 4 96 26 86" stroke="#d3995e" stroke-width="15"
+                                    fill="none" stroke-linecap="round" />
+                                <rect class="l1" x="46" y="150" width="13" height="46" rx="6" fill="#c98e55" />
+                                <rect class="l2" x="64" y="150" width="13" height="46" rx="6" fill="#d9a46c" />
+                                <rect class="l3" x="102" y="150" width="13" height="46" rx="6" fill="#c98e55" />
+                                <rect class="l4" x="120" y="150" width="13" height="46" rx="6" fill="#d9a46c" />
+                                <ellipse cx="86" cy="140" rx="54" ry="30" fill="#e0b07a" />
+                                <ellipse cx="96" cy="158" rx="34" ry="12" fill="#f6e3c4" />
+                                <g class="hd">
+                                    <circle cx="150" cy="114" r="27" fill="#e5b883" />
+                                    <path class="er" d="M131 98L128 70L152 88Z" fill="#d3995e" />
+                                    <path class="er" d="M158 88L178 70L176 100Z" fill="#d3995e" />
+                                    <ellipse class="ey" cx="160" cy="112" rx="4" ry="5.5" fill="#2b1a10" />
+                                    <ellipse cx="171" cy="122" rx="4" ry="3" fill="#e58f9b" />
+                                </g>
+                            </g>
+                        </g>
+                        <g id="sit" filter="url(#fz)">
+                            <g class="br">
+                                <path class="tl" d="M146 178C192 178 196 128 166 122" stroke="#d3995e" stroke-width="15"
+                                    fill="none" stroke-linecap="round" />
+                                <ellipse cx="100" cy="142" rx="48" ry="54" fill="#e0b07a" />
+                                <ellipse cx="100" cy="152" rx="25" ry="36" fill="#f6e3c4" />
+                                <ellipse cx="80" cy="192" rx="15" ry="8" fill="#f6e3c4" />
+                                <ellipse cx="120" cy="192" rx="15" ry="8" fill="#f6e3c4" />
+                                <g class="hd">
+                                    <path class="er" d="M70 54L66 18L96 40Z" fill="#d3995e" />
+                                    <path class="er" d="M130 54L134 18L104 40Z" fill="#d3995e" />
+                                    <path d="M72 48L70 28L88 41Z M128 48L130 28L112 41Z" fill="#e9a5a8" />
+                                    <circle cx="100" cy="72" r="35" fill="#e5b883" />
+                                    <ellipse cx="100" cy="86" rx="16" ry="12" fill="#f6e3c4" />
+                                    <ellipse class="ey" cx="86" cy="70" rx="5" ry="7.5" fill="#2b1a10" />
+                                    <ellipse class="ey" cx="114" cy="70" rx="5" ry="7.5" fill="#2b1a10" />
+                                    <circle cx="87.5" cy="67" r="1.8" fill="#fff" />
+                                    <circle cx="115.5" cy="67" r="1.8" fill="#fff" />
+                                    <path d="M96 80h8l-4 5z" fill="#e58f9b" />
+                                    <path d="M100 85q-5 6-10 3M100 85q5 6 10 3" stroke="#6b4a3a" fill="none"
+                                        stroke-width="1.3" />
+                                    <path d="M78 84l-18-3M78 88l-18 3M122 84l18-3M122 88l18 3" stroke="#fff9"
+                                        stroke-width="1" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg></div>
+            </div>
+        </div>
+        <canvas id="pc"></canvas>
+        <div id="tx">
+            <h1><span id="t1">Good Morning…</span> <span id="t2">Dhari 🌷</span></h1>
+            <div id="t3">For the girl who deserves a little magic every morning.</div>
+            <div id="ms"></div>
+        </div>
+        <div id="cap"></div>
+        <div id="bk"></div>
+        <button class="ct" id="mu" aria-label="Music">♪</button><button class="ct" id="rp">↻ Experience Again</button>
     </div>
-
-    <div class="love-text">
-
-        I love you, Dhari ❤️
-
-        <span class="love-subtext">
-            my heart found you
-        </span>
-
-    </div>
-
-    <button
-        class="back-button"
-        id="backButton"
-    >
-        swim back into the reef
-    </button>
-
-</section>
-
-
-<script>
-
-/* =========================================================
-   BASIC HELPERS
-========================================================= */
-
-const reef =
-    document.getElementById("reef");
-
-const hint =
-    document.getElementById("hint");
-
-const loveScreen =
-    document.getElementById("loveScreen");
-
-const heartGrid =
-    document.getElementById("heartGrid");
-
-const backButton =
-    document.getElementById("backButton");
-
-
-function random(min, max) {
-
-    return Math.random() *
-        (max - min) +
-        min;
-}
-
-function randomItem(array) {
-
-    return array[
-        Math.floor(
-            Math.random() *
-            array.length
-        )
-    ];
-}
-
-
-/* =========================================================
-   FISH COLORS
-========================================================= */
-
-const fishColors = [
-
-    "#ff895f",
-    "#ffd866",
-    "#47d1e8",
-    "#ff78a5",
-    "#8ee5ef",
-    "#79d5bb",
-    "#d9a8ef",
-    "#ffad58",
-    "#f6e6b5"
-
-];
-
-
-/* =========================================================
-   NORMAL FISH SVG
-========================================================= */
-
-const fishSVGs = [
-
-`
-<svg viewBox="0 0 100 60">
-
-    <path
-        d="
-        M15 30
-        C20 12 45 8 63 16
-        C78 23 81 40 65 48
-        C45 58 21 48 15 30Z"
-        fill="COLOR"
-    />
-
-    <path
-        d="
-        M65 22
-        L98 7
-        L84 30
-        L98 53
-        L65 41Z"
-        fill="COLOR"
-    />
-
-    <circle
-        cx="57"
-        cy="25"
-        r="3"
-        fill="#071522"
-    />
-
-</svg>
-`,
-
-`
-<svg viewBox="0 0 100 60">
-
-    <ellipse
-        cx="44"
-        cy="31"
-        rx="28"
-        ry="19"
-        fill="COLOR"
-    />
-
-    <path
-        d="
-        M67 31
-        L98 10
-        L84 31
-        L98 52
-        L67 40Z"
-        fill="COLOR"
-    />
-
-    <path
-        d="
-        M30 13
-        C25 24 25 38 30 49"
-        stroke="white"
-        stroke-width="5"
-        opacity=".45"
-        fill="none"
-    />
-
-    <circle
-        cx="57"
-        cy="26"
-        r="3"
-        fill="#071522"
-    />
-
-</svg>
-`,
-
-`
-<svg viewBox="0 0 100 60">
-
-    <path
-        d="
-        M13 31
-        C20 11 44 8 63 17
-        C79 25 79 42 63 49
-        C42 58 19 50 13 31Z"
-        fill="COLOR"
-    />
-
-    <path
-        d="
-        M63 21
-        L98 7
-        L84 31
-        L98 54
-        L63 42Z"
-        fill="COLOR"
-    />
-
-    <circle
-        cx="56"
-        cy="26"
-        r="3"
-        fill="#071522"
-    />
-
-</svg>
-`,
-
-`
-<svg viewBox="0 0 100 60">
-
-    <ellipse
-        cx="45"
-        cy="30"
-        rx="27"
-        ry="18"
-        fill="COLOR"
-    />
-
-    <path
-        d="
-        M68 30
-        L98 9
-        L85 30
-        L98 51
-        L68 40Z"
-        fill="COLOR"
-    />
-
-    <circle
-        cx="57"
-        cy="25"
-        r="3"
-        fill="#071522"
-    />
-
-</svg>
-`
-
-];
-
-
-/* =========================================================
-   NORMAL FISH
-========================================================= */
-
-const names = [
-
-    "Mango",
-    "Peach",
-    "Honey",
-    "Milo",
-    "Luna",
-    "Mochi",
-    "Nemo",
-    "Bubbles",
-    "Coco",
-    "Sunny",
-    "Rio",
-    "Blue",
-    "Misty",
-    "Pearl",
-    "Coral",
-    "Nova",
-    "Sky",
-    "Marble",
-    "Toffee",
-    "Cookie",
-    "Oreo",
-    "Piku",
-    "Momo",
-    "Kiki",
-    "Toby",
-    "Leo",
-    "Nala",
-    "Daisy",
-    "Ruby",
-    "Rosie",
-    "Mimi",
-    "Kiwi",
-    "Poppy",
-    "Mocha",
-    "Choco",
-    "Peanut",
-    "Bunny",
-    "Cloud",
-    "Storm",
-    "River",
-    "Star",
-    "Moon",
-    "Comet",
-    "Echo",
-    "Willow",
-    "Maple",
-    "Clover",
-    "Sandy",
-    "Mint",
-    "Berry",
-    "Cherry",
-    "Olive",
-    "Panda",
-    "Tiger",
-    "Puff",
-    "Finn",
-    "Winnie",
-    "Theo",
-    "Ziggy",
-    "Biscuit",
-    "Noodle",
-    "Dobby",
-    "Simba",
-    "Koko",
-    "Muffin",
-    "Peppy",
-    "Bambi",
-    "Fudge",
-    "Brownie",
-    "Jelly",
-    "Sprout",
-    "Penny",
-    "Rumi",
-    "Mika",
-    "Yuki",
-    "Ari",
-    "Zara",
-    "Kumo",
-    "Suki",
-    "Miso",
-    "Taffy",
-    "Dumpling",
-    "Pudding",
-    "Waffle",
-    "Cupcake",
-    "Marshmallow",
-    "Cinnamon",
-    "Nutmeg",
-    "Caramel",
-    "Vanilla",
-    "Latte",
-    "Saffron",
-    "Jasmine",
-    "Rose",
-    "Iris",
-    "Violet",
-    "Tulip",
-    "Bluebell",
-    "Hazel",
-    "Brook",
-    "Rain",
-    "Stormy",
-    "Drizzle",
-    "Mist",
-    "Frost",
-    "Winter",
-    "Autumn",
-    "Summer",
-    "Spring",
-    "Ember",
-    "Flame",
-    "Spark",
-    "Glow",
-    "Shimmer",
-    "Twinkle",
-    "Starlight",
-    "Moonbeam",
-    "Sunray",
-    "Aurora",
-    "Galaxy",
-    "Cosmo",
-    "Rocket",
-    "Orbit",
-    "Pixel",
-    "Byte",
-    "Lucky",
-    "Joy",
-    "Hope",
-    "Dream",
-    "Wish",
-    "Magic",
-    "Wonder"
-
-];
-
-let nameIndex = 0;
-
-
-function createFish() {
-
-    const fish =
-        document.createElement("button");
-
-    fish.className =
-        "fish " +
-        (
-            Math.random() > .5
-                ? "left"
-                : "right"
-        );
-
-    fish.style.setProperty(
-        "--y",
-        random(8,88) + "vh"
-    );
-
-    fish.style.setProperty(
-        "--drift",
-        random(-70,70) + "px"
-    );
-
-    fish.style.setProperty(
-        "--duration",
-        random(18,42) + "s"
-    );
-
-    fish.style.setProperty(
-        "--delay",
-        random(-40,0) + "s"
-    );
-
-    let svg =
-        randomItem(fishSVGs);
-
-    const color =
-        randomItem(fishColors);
-
-    svg =
-        svg.replaceAll(
-            "COLOR",
-            color
-        );
-
-    const name =
-        names[
-            nameIndex++ %
-            names.length
-        ];
-
-    fish.innerHTML =
-        svg +
-        `<span class="fish-name">${name}</span>`;
-
-    reef.appendChild(fish);
-}
-
-
-/* create reef fish */
-
-for (
-    let i = 0;
-    i < 150;
-    i++
-) {
-
-    createFish();
-
-}
-
-
-/* =========================================================
-   DHARI FISH
-========================================================= */
-
-const dhari =
-    document.createElement("button");
-
-dhari.className =
-    "fish dhari left";
-
-dhari.style.setProperty(
-    "--y",
-    "48vh"
-);
-
-dhari.style.setProperty(
-    "--drift",
-    "30px"
-);
-
-dhari.style.setProperty(
-    "--duration",
-    "32s"
-);
-
-dhari.style.setProperty(
-    "--delay",
-    "-10s"
-);
-
-dhari.innerHTML = `
-
-    <span class="heart-body"></span>
-
-    <span class="heart-tail"></span>
-
-    <span class="heart-eye"></span>
-
-    <span class="heart-shine"></span>
-
-    <span class="fish-name">
-        Dhari ♡
-    </span>
-
-`;
-
-reef.appendChild(dhari);
-
-
-/* =========================================================
-   BUBBLES
-========================================================= */
-
-function createBubble() {
-
-    const bubble =
-        document.createElement("div");
-
-    bubble.className =
-        "bubble";
-
-    const size =
-        random(3,12);
-
-    bubble.style.width =
-        size + "px";
-
-    bubble.style.height =
-        size + "px";
-
-    bubble.style.left =
-        random(0,100) + "%";
-
-    bubble.style.animationDuration =
-        random(7,18) + "s";
-
-    bubble.style.animationDelay =
-        random(0,6) + "s";
-
-    reef.appendChild(bubble);
-
-    setTimeout(
-        () => bubble.remove(),
-        24000
-    );
-}
-
-for (
-    let i = 0;
-    i < 30;
-    i++
-) {
-
-    createBubble();
-
-}
-
-setInterval(
-    createBubble,
-    800
-);
-
-
-/* =========================================================
-   PARTICLES
-========================================================= */
-
-function createParticle() {
-
-    const particle =
-        document.createElement("div");
-
-    particle.className =
-        "particle";
-
-    particle.style.left =
-        random(0,100) + "%";
-
-    particle.style.top =
-        random(20,100) + "%";
-
-    particle.style.animationDuration =
-        random(5,12) + "s";
-
-    reef.appendChild(
-        particle
-    );
-
-    setTimeout(
-        () => particle.remove(),
-        15000
-    );
-}
-
-for (
-    let i = 0;
-    i < 60;
-    i++
-) {
-
-    createParticle();
-
-}
-
-setInterval(
-    createParticle,
-    450
-);
-
-
-/* =========================================================
-   SEAWEED
-========================================================= */
-
-for (
-    let i = 0;
-    i < 25;
-    i++
-) {
-
-    const weed =
-        document.createElement("div");
-
-    weed.className =
-        "seaweed";
-
-    weed.style.left =
-        random(0,100) + "%";
-
-    weed.style.height =
-        random(35,95) + "px";
-
-    weed.style.animationDelay =
-        random(0,4) + "s";
-
-    reef.appendChild(weed);
-}
-
-
-/* =========================================================
-   CORAL
-========================================================= */
-
-function createCoral(
-    position
-) {
-
-    const coral =
-        document.createElement("div");
-
-    coral.className =
-        "coral";
-
-    coral.style.left =
-        position + "%";
-
-    for (
-        let i = 0;
-        i < 7;
-        i++
-    ) {
-
-        const branch =
-            document.createElement("span");
-
-        branch.style.left =
-            random(5,65) + "px";
-
-        branch.style.height =
-            random(25,70) + "px";
-
-        branch.style.transform =
-            `rotate(${random(-30,30)}deg)`;
-
-        branch.style.animationDelay =
-            random(0,3) + "s";
-
-        coral.appendChild(
-            branch
-        );
-    }
-
-    reef.appendChild(
-        coral
-    );
-}
-
-createCoral(8);
-createCoral(73);
-
-
-/* =========================================================
-   HEART SHAPE
-=========================================================
-
-   This is deliberately made from a FIXED GRID.
-
-   #   #     #   #
-   ### ### ### ###
-   ###############
-    #############
-     ###########
-       #######
-        #####
-         ###
-          #
-
-   So there is no mathematical equation
-   that can fail to render.
-========================================================= */
-
-const heartPattern = [
-
-    "     111111     111111     ",
-
-    "   1111111111  1111111111   ",
-
-    "  111111111111111111111111  ",
-
-    " 11111111111111111111111111 ",
-
-    "1111111111111111111111111111",
-
-    "1111111111111111111111111111",
-
-    "1111111111111111111111111111",
-
-    " 11111111111111111111111111 ",
-
-    "  111111111111111111111111  ",
-
-    "   1111111111111111111111   ",
-
-    "    11111111111111111111    ",
-
-    "      1111111111111111      ",
-
-    "        111111111111        ",
-
-    "         1111111111         ",
-
-    "          11111111          ",
-
-    "           111111           ",
-
-    "            1111            ",
-
-    "             11             "
-
-];
-
-
-/* =========================================================
-   CREATE HEART FISH
-========================================================= */
-
-function createFishHeart() {
-
-    heartGrid.innerHTML = "";
-
-    const rows =
-        heartPattern.length;
-
-    const cols =
-        heartPattern[0].length;
-
-    const gridWidth =
-        heartGrid.clientWidth;
-
-    const gridHeight =
-        heartGrid.clientHeight;
-
-
-    /*
-       Responsive fish size
-    */
-
-    let fishWidth;
-
-    if (
-        window.innerWidth <= 600
-    ) {
-
-        fishWidth = 14;
-
-    } else if (
-        window.innerWidth <= 900
-    ) {
-
-        fishWidth = 20;
-
-    } else {
-
-        fishWidth = 25;
-
-    }
-
-
-    /*
-       Calculate spacing.
-    */
-
-    const xSpacing =
-        Math.min(
-            fishWidth + 2,
-            gridWidth / cols
-        );
-
-    const ySpacing =
-        Math.min(
-            fishWidth * .85,
-            gridHeight / rows
-        );
-
-
-    /*
-       Center the heart.
-    */
-
-    const actualWidth =
-        cols * xSpacing;
-
-    const actualHeight =
-        rows * ySpacing;
-
-    const startX =
-        (gridWidth -
-            actualWidth) / 2;
-
-    const startY =
-        (gridHeight -
-            actualHeight) / 2;
-
-
-    let counter = 0;
-
-
-    /*
-       Read every cell.
-    */
-
-    heartPattern.forEach(
-        (row, rowIndex) => {
-
-            [...row].forEach(
-                (cell, columnIndex) => {
-
-                    if (
-                        cell !== "1"
-                    ) {
-                        return;
-                    }
-
-
-                    const fish =
-                        document.createElement(
-                            "div"
-                        );
-
-                    fish.className =
-                        "heart-fish";
-
-
-                    /*
-                       Pick fish color.
-                    */
-
-                    const color =
-                        fishColors[
-                            counter %
-                            fishColors.length
-                        ];
-
-
-                    /*
-                       Pick SVG.
-                    */
-
-                    let svg =
-                        fishSVGs[
-                            counter %
-                            fishSVGs.length
-                        ];
-
-
-                    svg =
-                        svg.replaceAll(
-                            "COLOR",
-                            color
-                        );
-
-
-                    fish.innerHTML = `
-
-                        <div
-                            class="heart-fish-inner"
-                        >
-
-                            ${svg}
-
-                        </div>
-
-                    `;
-
-
-                    /*
-                       Position.
-                    */
-
-                    const x =
-                        startX +
-                        columnIndex *
-                        xSpacing +
-                        xSpacing / 2;
-
-                    const y =
-                        startY +
-                        rowIndex *
-                        ySpacing +
-                        ySpacing / 2;
-
-
-                    fish.style.left =
-                        x + "px";
-
-                    fish.style.top =
-                        y + "px";
-
-
-                    /*
-                       Every fish gets
-                       slightly different movement.
-                    */
-
-                    fish.style.setProperty(
-                        "--fish-speed",
-                        random(1.5,3.2) + "s"
-                    );
-
-
-                    /*
-                       Different entrance delays.
-                    */
-
-                    fish.style.transitionDelay =
-                        (
-                            counter *
-                            .018
-                        ) + "s";
-
-
-                    /*
-                       Slight rotations.
-                    */
-
-                    fish.querySelector(
-                        ".heart-fish-inner"
-                    ).style.transform =
-                        `rotate(
-                            ${random(-8,8)}deg
-                        )`;
-
-
-                    heartGrid.appendChild(
-                        fish
-                    );
-
-
-                    counter++;
-
-                }
-            );
-
+    <div id="tp"></div>
+    <div id="cd"></div>
+    <script>
+        const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)], st = $('#st'), W = $('#w'), cap = $('#cap'), K = $('#cat');
+        let run = 0, cam = { x: 0, y: 0, s: 1 }, mode = 0, garden = 0;
+        const FT = ["'Playfair Display'", "'Cormorant Garamond'", "Georgia", "Caveat", "'Courier New'"];
+        const D = `A Home Far Away|Yatsuda, Teki|#3f5a4b|#f0e6cf|7|78
+Blind Owl|Sadegh Hedayat|#1d1a24|#d9c9a0|5|90
+Dead Inside|Chandler Morrison|#8a1f2b|#f1e7e0|6|72
+The Illicit Happiness of Other People|Manu Joseph|#d9b25f|#3a2410|8|86
+The Honjin Murders|Seishi Yokomizo|#2d3d5a|#eadfc4|7|80
+Malice|Keigo Higashino|#6b1f30|#f3e2c8|5|92
+The Diving Pool: Three Novellas|Yōko Ogawa|#3d6a73|#f4efe0|8|76
+In the Miso Soup|Ryū Murakami|#b5532f|#fbefd8|6|84
+Rashōmon and Seventeen Other Stories|Ryūnosuke Akutagawa|#e4d6b4|#4a1f22|9|88
+The Necrophiliac|Gabrielle Wittkop|#2a2a2a|#c9b27a|5|70
+The Song of Achilles|Madeline Miller|#c98a3a|#2a1408|8|90
+American Psycho|Bret Easton Ellis|#101010|#e8e0d0|7|82
+The Seven Husbands of Evelyn Hugo|Taylor Jenkins Reid|#2f6a5a|#f4e8c8|9|78
+The Good Son|You-Jeong Jeong|#7a2f3a|#efe0d2|6|92
+Sputnik Sweetheart|Haruki Murakami|#4a5f86|#f2ead6|6|74
+Hungry Gods|Richa Lakhera|#a8573a|#f6e8cf|6|86
+The Outsider|Albert Camus|#d8c9a2|#2b2b2b|5|80
+If We Were Villains|M.L. Rio|#3b1d2a|#e6cfa0
+The Secret History|Donna Tartt|#5c2230|#e9d9b2
+No Longer Human|Osamu Dazai|#1f3a36|#efe3c2`.split('\n').map(l => l.split('|'));
+        const mkb = (a, i) => { const e = document.createElement('div'); e.className = 'bk' + (i % 2 ? ' hc' : ''); e.dataset.t = a[0] + ' — ' + a[1]; e.style.cssText = `flex:${a[4]};height:${a[5]}%;background-color:${a[2]};color:${a[3]};font-family:${FT[i % 5]};${i % 7 == 3 ? 'rotate:5deg;margin:0 1.2%' : ''}`; e.innerHTML = `<b style="--k:${1.5 / a[0].length}">${a[0]}</b>`; return e };
+        const rows = $$('#case')[0], shs = [6, 6, 5]; let n = 0;
+        shs.forEach(c => { const r = document.createElement('div'); r.className = 'sh'; for (let j = 0; j < c; j++, n++)r.appendChild(mkb(D[n], n)); rows.insertBefore(r, $('#vn')) });
+        D.slice(17).forEach((a, i) => { const e = document.createElement('div'); e.className = 'sb'; e.dataset.t = a[0] + ' — ' + a[1]; e.style.cssText = `background:${a[2]};color:${a[3]};width:${86 - i * 7}%;rotate:${[-1.5, 2, -1][i]}deg;font-family:${FT[i + 1]}`; e.textContent = a[0]; $('#stk').appendChild(e) });
+        const bookEls = t => $$('.bk,.sb').find(b => b.dataset.t.startsWith(t));
+        // flowers
+        const PAL = { B: '#8a2a3b', P: '#e8a3b5', C: '#f5ead6', G: '#e3b04b', L: '#a99ad6', U: '#6f8fd1', K: '#d9694f', W: '#fffaf0', O: '#e8913a', R: '#c23a4a', V: '#7b4a9c', Y: '#f2d95c' };
+        const FL = "Rose OR;Tulip UK;Sunflower RY;Lily TW;Lavender SL;Daisy RW;Daffodil TY;Peony OP;Chrysanthemum RG;Orchid PV;Lotus UP;Jasmine PW;Marigold RO;Hibiscus TR;Carnation OK;Gardenia OW;Violet PV;Poppy UR;Iris TV;Camellia OP;Magnolia UC;Hydrangea CU;Lilac CL;Bluebell BU;Forget-me-not PU;Cosmos RP;Aster RV;Gerbera RK;Ranunculus OG;Anemone RW;Primrose PY;Zinnia RK;Dahlia OB;Freesia BY;Snapdragon SK;Morning Glory TU;Sweet Pea PP;Cherry Blossom PP;Apple Blossom PW;Plumeria PY;Lupine SV;Foxglove BP;Delphinium SU;Hollyhock SP;Gladiolus SK;Lily of the Valley BW;Snowdrop BW;Crocus UV;Hyacinth CL;Wisteria CL;Bougainvillea PK;Azalea PP;Rhododendron CP;Begonia PR;Petunia TP;Pansy PV;Geranium CR;Fuchsia BV;Clematis RL;Columbine BU;Cornflower RU;Calendula RO;Nasturtium TO;Buttercup PY;Dandelion RY;Honeysuckle TG;Lisianthus OL;Protea RK;Amaryllis TR;Anthurium UR;Bird of Paradise SO;Chamomile RW;Yarrow CY;Baby's Breath CW;Heather SP;Edelweiss RC;Thistle CV;Echinacea RP;Black-eyed Susan RG;Phlox CP;Verbena CV;Salvia SB;Larkspur SL;Stock SP;Statice CL;Celosia CR;Cyclamen UP;Oleander PP;Tuberose BW;Ixia RK;Alstroemeria TO;Agapanthus CU;Allium CV;Hellebore PC;Trillium PW;Veronica SU;Winter Jasmine PY;Moonflower TW;Peruvian Lily TK;Love-in-a-Mist RU".split(';');
+        function head(t, c) {
+            let s = '', i; const T = 'transform';
+            if (t == 'R') { for (i = 0; i < 12; i++)s += `<ellipse rx="3.4" ry="11" cy="-11" fill="${c}" ${T}="translate(30 28) rotate(${i * 30})"/>`; s += `<circle cx="30" cy="28" r="5" fill="#6b3a1c"/>` }
+            else if (t == 'U') s = `<path d="M14 42Q12 12 30 8Q48 12 46 42Q30 52 14 42Z" fill="${c}"/><path d="M30 8Q22 26 30 46Q38 26 30 8Z" fill="#fff3"/>`;
+            else if (t == 'S') for (i = 0; i < 9; i++)s += `<circle cx="${30 + (i % 2 ? 4 : -4)}" cy="${8 + i * 7}" r="5.5" fill="${c}"/>`;
+            else if (t == 'C') for (i = 0; i < 14; i++)s += `<circle cx="${30 + Math.cos(i * 2.4) * i * 1.5}" cy="${26 + Math.sin(i * 2.4) * i * 1.4}" r="7" fill="${c}" stroke="#0002"/>`;
+            else if (t == 'B') { [[18, 24], [32, 16], [44, 28]].forEach(p => s += `<path ${T}="translate(${p})" d="M-7 0Q-7-12 0-12Q7-12 7 0Q9 6 11 8H-11Q-9 6-7 0Z" fill="${c}"/>`) }
+            else if (t == 'O') { [21, 16, 11, 6].forEach(r => s += `<circle cx="30" cy="28" r="${r}" fill="${c}" stroke="#0003"/>`); s += `<path d="M30 28q6-6 0-10" stroke="#0003" fill="none"/>` }
+            else if (t == 'P') { for (i = 0; i < 5; i++)s += `<circle cx="${30 + Math.sin(i * 1.2566) * 10}" cy="${28 - Math.cos(i * 1.2566) * 10}" r="10" fill="${c}" stroke="#0002"/>`; s += `<circle cx="30" cy="28" r="4" fill="#f2c14e"/>` }
+            else s = `<path d="M30 44L10 10Q30-2 50 10Z" fill="${c}"/><ellipse cx="30" cy="10" rx="20" ry="6" fill="#fff4"/><circle cx="30" cy="20" r="3" fill="#f2c14e"/>`;
+            return s
         }
-    );
-}
-
-
-/* =========================================================
-   FLOATING HEARTS
-========================================================= */
-
-function floatingHearts() {
-
-    for (
-        let i = 0;
-        i < 25;
-        i++
-    ) {
-
-        setTimeout(
-            () => {
-
-                const heart =
-                    document.createElement(
-                        "div"
-                    );
-
-                heart.className =
-                    "float-heart";
-
-                heart.textContent =
-                    Math.random() > .4
-                        ? "♥"
-                        : "♡";
-
-                heart.style.left =
-                    random(10,90) + "vw";
-
-                heart.style.top =
-                    random(65,90) + "vh";
-
-                heart.style.setProperty(
-                    "--size",
-                    random(12,25) + "px"
-                );
-
-                heart.style.setProperty(
-                    "--move",
-                    random(-70,70) + "px"
-                );
-
-                document.body.appendChild(
-                    heart
-                );
-
-                setTimeout(
-                    () => heart.remove(),
-                    3200
-                );
-
-            },
-            i * 130
-        );
-    }
-}
-
-
-/* =========================================================
-   REVEAL
-========================================================= */
-
-let revealed = false;
-
-function revealDhari() {
-
-    if (revealed) {
-        return;
-    }
-
-    revealed = true;
-
-
-    /*
-       Enter love mode.
-    */
-
-    document.body.classList.add(
-        "love-mode"
-    );
-
-    hint.classList.add(
-        "hide"
-    );
-
-
-    /*
-       Stop all reef fish.
-    */
-
-    document
-        .querySelectorAll(
-            "#reef .fish"
-        )
-        .forEach(
-            fish => {
-
-                fish.style.animationPlayState =
-                    "paused";
-
-            }
-        );
-
-
-    /*
-       Fade normal fish.
-    */
-
-    document
-        .querySelectorAll(
-            "#reef .fish:not(.dhari)"
-        )
-        .forEach(
-            (fish, index) => {
-
-                setTimeout(
-                    () => {
-
-                        fish.style.opacity =
-                            "0";
-
-                    },
-                    index * 3
-                );
-
-            }
-        );
-
-
-    /*
-       Fade Dhari.
-    */
-
-    setTimeout(
-        () => {
-
-            dhari.style.opacity =
-                "0";
-
-        },
-        300
-    );
-
-
-    /*
-       IMPORTANT:
-       Build the heart AFTER
-       the container exists.
-    */
-
-    createFishHeart();
-
-
-    /*
-       Show love screen.
-    */
-
-    setTimeout(
-        () => {
-
-            loveScreen.classList.add(
-                "show"
-            );
-
-            floatingHearts();
-
-        },
-        350
-    );
-}
-
-
-/* =========================================================
-   CLICK DHARI
-========================================================= */
-
-dhari.addEventListener(
-    "click",
-    revealDhari
-);
-
-
-/* =========================================================
-   BACK TO REEF
-========================================================= */
-
-function backToReef() {
-
-    loveScreen.classList.remove(
-        "show"
-    );
-
-
-    setTimeout(
-        () => {
-
-            document.body.classList.remove(
-                "love-mode"
-            );
-
-            /*
-               Restore fish.
-            */
-
-            document
-                .querySelectorAll(
-                    "#reef .fish"
-                )
-                .forEach(
-                    fish => {
-
-                        fish.style.opacity =
-                            "";
-
-                        fish.style.animationPlayState =
-                            "running";
-
-                    }
-                );
-
-
-            dhari.style.opacity =
-                "";
-
-
-            hint.classList.remove(
-                "hide"
-            );
-
-
-            revealed = false;
-
-        },
-        800
-    );
-}
-
-backButton.addEventListener(
-    "click",
-    backToReef
-);
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            revealed
-        ) {
-
-            backToReef();
-
+        function svg(t, c) { return `<svg viewBox="0 0 60 100"><path d="M30 98Q27 70 30 40" stroke="#5f8250" stroke-width="2.4" fill="none"/><path d="M29 80Q14 70 12 62Q26 62 29 80Z" fill="#6f8b5e"/>${head(t, PAL[c])}</svg>` }
+        let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+        function bloom() {
+            const H = innerHeight, Wd = innerWidth, box = $('#fl'); box.innerHTML = ''; seed = 7; $$('.vi').forEach(e => e.remove());
+            const q = $('#cs').getBoundingClientRect(), hx = (q.left + q.width / 2) / Wd * 100, hr = q.width * .62 / Wd * 100, hy0 = (q.bottom - q.width * 1.4) / H * 100, hy1 = q.bottom / H * 100 - 1;
+            FL.forEach((s, i) => {
+                const nm = s.slice(0, -3), t = s[s.length - 2], c = s[s.length - 1]; let x, y, hang = i % 10 == 3 && i < 100 && i > 0 && i % 3 == 0;
+                do { x = 3 + rnd() * 94; y = 44 + rnd() * 53; if (hang) { x = rnd() < .5 ? 4 + rnd() * 22 : 74 + rnd() * 22; y = 14 + rnd() * 16 } } while (!hang && Math.abs(x - hx) < hr && y > hy0 && y < hy1);
+                const sz = hang ? 7 : (2.8 + y / 100 * 5.5) * (.8 + rnd() * .5), e = document.createElement('div'); e.className = 'fl'; e.dataset.t = nm; e.style.cssText = `left:${(x + 9) / 1.18}%;top:${(y + 9) / 1.18}%;width:${sz}vmin;height:${sz * 1.7}vmin;z-index:${Math.round(y)};transition-delay:${(rnd() * 7).toFixed(1)}s`;
+                e.innerHTML = svg(t, c); e.firstChild.style.animationDelay = -rnd() * 4 + 's'; e.firstChild.style.animationDuration = 3 + rnd() * 2 + 's'; box.appendChild(e);
+                if (hang) { const v = document.createElement('i'); v.className = 'vi'; v.style.cssText = `left:${(x + 9) / 1.18}%;height:${(y + 9) / 1.18 - sz * 1.7 * .0 - 1}%;display:block;position:absolute;top:0`; box.appendChild(v) }
+            });
+            const vn = $('#vn'); if (!vn.children.length) for (let i = 0; i < 16; i++) { const s = FL[i * 5], e = document.createElement('div'); e.style.cssText = `position:absolute;left:${rnd() * 92}%;top:${rnd() * 92}%;width:3.2%;aspect-ratio:.6`; e.innerHTML = svg('P', 'PKCGW'[i % 5]); vn.appendChild(e) }
         }
-
-    }
-);
-
-
-/* =========================================================
-   RESIZE
-========================================================= */
-
-window.addEventListener(
-    "resize",
-    () => {
-
-        if (revealed) {
-
-            createFishHeart();
-
+        // camera
+        function C(x, y, s, d) { const w = innerWidth, h = innerHeight; cam = { x: w / 2 - x * s, y: h / 2 - y * s, s }; W.style.transitionDuration = d + 's'; W.style.transform = `translate(${cam.x}px,${cam.y}px) scale(${s})` }
+        function P(el) { const r = el.getBoundingClientRect(); return [(r.left + r.width / 2 - cam.x) / cam.s, (r.top + r.height / 2 - cam.y) / cam.s] }
+        function reset() { st.className = ''; mode = 0; garden = 0; K.className = ''; $('#cw').style.transform = ''; K.style.transitionDuration = '0s'; K.style.transform = 'translate(-300vw,0)'; $$('#tx .on,#ms.on').forEach(e => e.classList.remove('on')); $('#ms').innerHTML = ''; cap.className = ''; $$('.f').forEach(e => e.classList.remove('f')); C(innerWidth / 2, innerHeight / 2, 1, 0); bloom() }
+        async function play() {
+            const id = ++run, z = ms => new Promise(r => setTimeout(r, ms)).then(() => { if (id !== run) throw 0 });
+            try {
+                reset(); const w = innerWidth, h = innerHeight, por = w / h < .8; await z(200);
+                C(w * .2, h * .32, por ? 1.6 : 1.5, 0); await z(100); st.classList.add('in'); C(w * .5, h * .34, por ? 1.6 : 1.4, 9); await z(7000);
+                st.classList.add('dof');
+                const F = async (t, s) => { $$('.f').forEach(e => e.classList.remove('f')); const e = bookEls(t); e.classList.add('f'); cap.textContent = e.dataset.t; cap.classList.add('on'); const [p, q] = P(e); C(p, q, s, 2.8); await z(4200); cap.classList.remove('on'); await z(500) };
+                for (const t of ['No Longer Human', 'The Secret History', 'If We Were Villains', 'The Song of Achilles', 'Blind Owl', 'Sputnik Sweetheart']) await F(t, por ? 3 : 2.5);
+                $$('.f').forEach(e => e.classList.remove('f')); st.classList.remove('dof'); C(w / 2, h / 2, 1, 6); await z(11000);
+                // cat
+                const cs = $('#cs'), cw = K.offsetWidth, mv = (x, y, d, e = 'linear') => { K.style.transitionDuration = d + 's'; K.style.transitionTimingFunction = e; K.style.transform = `translate(${x * cw}px,${-y * cw}px)` };
+                mv(-(cs.offsetLeft + cw * 1.2) / cw, 0, 0); await z(60); K.classList.add('on', 'wk'); mv(-1.05, 0, 7); await z(7300); K.classList.remove('wk');
+                K.classList.add('lk'); await z(2400); K.classList.remove('lk'); K.classList.add('lc'); await z(2200); K.classList.remove('lc');
+                K.classList.add('wk'); mv(-.7, 0, 3.2); await z(3400); K.classList.remove('wk'); K.classList.add('sn'); await z(2600); K.classList.remove('sn');
+                K.classList.add('wk'); mv(1.0, 0, 6.5); await z(6700); $('#cw').style.transform = 'scaleX(-1)'; mv(.5, 0, 3.5); await z(3700); K.classList.remove('wk'); await z(1200);
+                K.classList.add('pw'); mv(.42, .1, 1.1); await z(1300); mv(0, .4, 1.3, 'cubic-bezier(.3,1.5,.5,1)'); await z(1100); K.classList.remove('pw'); K.classList.add('sit'); await z(900);
+                K.classList.add('tn'); await z(2300); K.classList.remove('tn'); K.classList.add('gl'); await z(7000); K.classList.add('str'); await z(3500); K.classList.remove('str'); await z(3000);
+                // magic
+                const [p, q] = P(K); C(p, q, por ? 1.5 : 1.6, 5); mode = 1; st.classList.add('mg'); await z(9000); mode = 2; await z(5000);
+                st.classList.add('tr'); C(w / 2, h / 2, 1, 12); await z(10000); st.classList.add('gd'); garden = 1; await z(9000);
+                $('#t1').classList.add('on'); await z(3200); $('#t2').classList.add('on'); await z(4000); $('#t3').classList.add('on'); await z(5000);
+                const M = [["If I could give you one thing every morning,", "it would be a reason to smile", "before your day even begins."], ["And if every flower in this garden", "could carry one little feeling from my heart,", "you would still need more than a hundred", "to hold it all."], ["Good morning, my Dhari. ❤️", "<small>I hope today is as gentle and beautiful as you are.</small>"]], ms = $('#ms');
+                for (let i = 0; i < 3; i++) { ms.classList.remove('on'); await z(1500); ms.innerHTML = M[i].map((l, j) => `<p style="transition-delay:${j * 1.5}s">${l}</p>`).join(''); void ms.offsetWidth; ms.classList.add('on'); await z(M[i].length * 1500 + (i == 2 ? 500 : 5500)) }
+                K.classList.add('pet'); await z(2400); K.classList.remove('pet'); K.classList.add('cl'); C(w / 2, h / 2, .96, 12); await z(3000); st.classList.add('end')
+            } catch (e) { if (e !== 0) console.error(e) }
         }
-
-    }
-);
-
-</script>
-
+        // particles
+        const cv = $('#pc'), x2 = cv.getContext('2d'); let ps = [], dpr = 1;
+        function rs() { dpr = Math.min(2, devicePixelRatio || 1); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr }
+        const add = o => { if (ps.length < 230) ps.push(o) };
+        function petal(x, y, up) { const r = Math.random; add({ k: 'p', x, y, vx: up ? (r() - .5) * 1.2 : .3 + r(), vy: up ? -1 - r() * 1.2 : .4 + r() * .6, s: 3 + r() * 3, a: r() * 6, l: 1, up }) }
+        function frame() {
+            const Wd = innerWidth, H = innerHeight, r = Math.random; x2.setTransform(dpr, 0, 0, dpr, 0, 0); x2.clearRect(0, 0, Wd, H);
+            if (r() < .12) add({ k: 'd', x: r() * Wd, y: r() * H, vx: .1, vy: -.05 - r() * .1, s: .8 + r() * 1.4, l: 1, a: .15 + r() * .3 });
+            const q = $('#cs').getBoundingClientRect(), cc = K.getBoundingClientRect();
+            if (mode == 1 || mode == 2) { if (r() < .35) add({ k: 'g', x: q.left + q.width * (.1 + r() * .8), y: q.bottom - q.height * r() * .45, vx: 0, vy: -.3 - r() * .5, s: 1.5 + r() * 2, l: 1 }); if (r() < .1) add({ k: 'o', cx: cc.left + cc.width / 2, cy: cc.top + cc.height * .5, an: r() * 6, R: cc.width * (.35 + r() * .3), l: 1, s: 2.2 }) }
+            if (mode >= 2 && r() < (garden ? .05 : .25)) petal(r() * Wd, -10);
+            x2.globalCompositeOperation = 'lighter';
+            ps = ps.filter(p => {
+                p.l -= p.k == 'd' ? .0015 : p.k == 'h' ? .012 : .003; if (p.k == 'o') { p.an += .03; p.R *= .9995; p.x = p.cx + Math.cos(p.an) * p.R; p.y = p.cy + Math.sin(p.an) * p.R * .6; if (mode >= 2) p.l -= .01 } else { p.x += p.vx + (p.k == 'p' ? Math.sin(p.y / 40) * .4 : 0); p.y += p.vy }
+                if (p.k == 'p') p.a += .03;
+                const pet = p.k == 'p' || (p.k == 'g' && mode >= 2);
+                if (p.k == 'h') { x2.globalCompositeOperation = 'source-over'; x2.fillStyle = `rgba(200,60,90,${p.l})`; x2.font = '16px serif'; x2.fillText('♥', p.x, p.y); x2.globalCompositeOperation = 'lighter' }
+                else if (pet) { x2.globalCompositeOperation = 'source-over'; x2.fillStyle = `rgba(240,170,190,${Math.min(.85, p.l * 2)})`; x2.beginPath(); x2.ellipse(p.x, p.y, p.s, p.s * .55, p.a || p.y / 30, 0, 6.3); x2.fill(); x2.globalCompositeOperation = 'lighter' }
+                else { x2.fillStyle = p.k == 'd' ? `rgba(255,235,200,${p.a * p.l})` : `rgba(255,214,120,${p.l * .9})`; x2.beginPath(); x2.arc(p.x, p.y, p.s, 0, 6.3); x2.fill() }
+                return p.l > 0 && p.y > -30 && p.y < H + 30 && p.x < Wd + 30
+            });
+            requestAnimationFrame(frame)
+        }
+        // interaction
+        const tp = $('#tp'), cd = $('#cd');
+        st.addEventListener('pointermove', e => { const t = e.target.closest('[data-t]'); if (t && !t.closest('#cat')) { tp.textContent = t.dataset.t; tp.style.left = Math.min(e.clientX + 14, innerWidth - tp.offsetWidth - 8) + 'px'; tp.style.top = e.clientY + 16 + 'px'; tp.style.opacity = 1 } else tp.style.opacity = 0 });
+        st.addEventListener('pointerleave', () => tp.style.opacity = 0);
+        let ct; st.addEventListener('click', e => {
+            const t = e.target.closest('.bk,.sb,.fl,.nt,#cat'); if (!t) return;
+            if (t.matches('.bk,.sb')) { cd.innerHTML = `A book you loved.<small>${t.dataset.t}</small>`; cd.classList.add('on'); clearTimeout(ct); ct = setTimeout(() => cd.classList.remove('on'), 2800) }
+            else if (t.matches('.fl')) for (let i = 0; i < 6; i++)petal(e.clientX, e.clientY, 1);
+            else if (t.matches('.nt')) t.classList.toggle('o');
+            else { K.classList.remove('pet'); void K.offsetWidth; K.classList.add('pet'); setTimeout(() => K.classList.remove('pet'), 2400); add({ k: 'h', x: e.clientX, y: e.clientY - 10, vx: (Math.random() - .5) * .5, vy: -.8, l: 1 }) }
+        });
+        // audio
+        let ac, mx, mi = 0, tm, on = 0; const SEQ = [[220, 261.6, 329.6, 440], [174.6, 220, 261.6, 349.2], [261.6, 329.6, 392, 523.3], [196, 246.9, 293.7, 392]];
+        function nt(f, v, d) { const t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain(); o.type = 'triangle'; o.frequency.value = f; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .03); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(mx); o.start(t); o.stop(t + d) }
+        function tick() { const ch = SEQ[Math.floor(mi / 8) % 4], i = mi % 8; nt(ch[[0, 1, 2, 3, 2, 1, 3, 1][i]], .09, 2.2); if (i == 0) nt(ch[0] / 2, .1, 3.5); mi++; if (garden && Math.random() < .14) { const t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(3000, t); o.frequency.exponentialRampToValueAtTime(4300, t + .12); g.gain.setValueAtTime(.012, t); g.gain.exponentialRampToValueAtTime(.0001, t + .2); o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + .25) } }
+        $('#mu').onclick = () => {
+            if (!ac) { ac = new (window.AudioContext || window.webkitAudioContext)(); mx = ac.createGain(); const d = ac.createDelay(), fb = ac.createGain(); d.delayTime.value = .42; fb.gain.value = .4; mx.connect(ac.destination); mx.connect(d); d.connect(fb); fb.connect(d); d.connect(ac.destination) }
+            on = !on; $('#mu').style.opacity = on ? 1 : .6; $('#mu').textContent = on ? '♫' : '♪'; if (on) { ac.resume(); tm = setInterval(tick, 620) } else clearInterval(tm)
+        };
+        $('#mu').style.opacity = .6; $('#rp').onclick = play;
+        addEventListener('resize', () => { rs(); bloom() });
+        rs(); frame(); bloom(); play();
+    </script>
 </body>
+
 </html>
