@@ -1,0 +1,532 @@
+/* ============================================================================
+   Find Dhari — the game that opens the site.
+   It sits over the night mountain scene. Everything is scoped to #game so it
+   cannot touch the mountain styles in style.css.
+   ========================================================================== */
+
+/* While the game is open, the mountain's own interface stays out of the way */
+.stage.game-on .intro,
+.stage.game-on .time-pill,
+.stage.game-on .progress {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: none;
+}
+
+.stage.game-on #btnPause,
+.stage.game-on #btnReplay {
+  display: none;
+}
+
+/* Two buttons at the end of the handwritten letter */
+.letter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Overlay
+   z-index 15 sits above the words and letter (10-14) but below the sound
+   button (20), so nature sounds can be switched on during the game.
+   ------------------------------------------------------------------------- */
+
+#game {
+  --card: rgba(255, 232, 238, 0.08);
+  --line: rgba(255, 194, 212, 0.24);
+  --text: #fff1f0;
+  --muted: #e6c3d0;
+  --gold: #f6d28b;
+  --rose: #ff7ea8;
+  --blush: #ffc2d4;
+  --deep: #4a1229;
+  --leaf: hsl(345 20% 31%);
+
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  color: var(--text);
+  font-family: "Nunito", system-ui, sans-serif;
+  transition: opacity 1.4s ease, visibility 0s;
+}
+
+#game::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(90% 55% at 50% -8%, rgba(255, 126, 168, 0.22), transparent 62%),
+    linear-gradient(rgba(14, 4, 18, 0.5), rgba(14, 4, 18, 0.64));
+}
+
+#game.is-off {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1.4s ease, visibility 0s linear 1.4s;
+}
+
+#game .scroll {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+#game .app {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: max(18px, env(safe-area-inset-top)) 16px 40px;
+}
+
+#game .hearts,
+#game .fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#game .fx { z-index: 5; }
+
+#game .hearts b {
+  position: absolute;
+  bottom: -40px;
+  font-weight: 400;
+  font-size: var(--s);
+  color: hsl(var(--h) 85% 70%);
+  opacity: 0;
+  animation: g-floatUp var(--t) linear var(--dl) infinite;
+}
+
+@keyframes g-floatUp {
+  10% { opacity: 0.38; }
+  90% { opacity: 0.2; }
+  100% { transform: translate(var(--dx), -110vh) rotate(25deg); opacity: 0; }
+}
+
+/* ---------- header ---------- */
+#game .hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* leave room for the sound button that floats at the top right */
+  padding-right: 60px;
+  min-height: 44px;
+  margin-bottom: 10px;
+}
+
+#game .brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+#game .brand em {
+  font-family: "Great Vibes", cursive;
+  font-style: normal;
+  font-size: 1.9rem;
+  color: var(--rose);
+}
+
+#game .dots { display: flex; gap: 8px; }
+
+#game .dots span {
+  font-size: 1.2rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.25);
+  transition: color 0.4s;
+}
+
+#game .dots span::before { content: "\2665"; }
+#game .dots span.now { color: var(--gold); animation: g-beat 1.3s ease-in-out infinite; }
+#game .dots span.done { color: var(--rose); text-shadow: 0 0 10px rgba(255, 126, 168, 0.7); }
+
+@keyframes g-beat {
+  15% { transform: scale(1.3); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.2); }
+}
+
+/* ---------- cards and text ---------- */
+#game .card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 24px 18px 26px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35), inset 0 0 40px rgba(255, 126, 168, 0.05);
+  animation: g-rise 0.6s ease both;
+}
+
+#game .card.center { text-align: center; }
+
+@keyframes g-rise { from { opacity: 0; transform: translateY(14px); } }
+
+#game .kicker {
+  margin: 0 0 6px;
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+#game h1,
+#game h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  margin: 0 0 8px;
+  line-height: 1.15;
+  max-width: none;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+#game h1 { font-size: 2.3rem; }
+#game h2 { font-size: 1.7rem; }
+#game h1 em { font-style: italic; color: var(--blush); }
+
+#game .sub { margin: 0 0 16px; color: var(--muted); line-height: 1.55; }
+
+#game .btn {
+  font: inherit;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  color: var(--deep);
+  background: linear-gradient(135deg, var(--gold), var(--rose));
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+#game .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255, 126, 168, 0.4); }
+#game .btn.ghost { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
+#game .btn:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: none; }
+#game .btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+#game .status { text-align: center; margin: 14px 0 0; min-height: 1.4em; color: var(--muted); }
+#game .status.shake { animation: g-shake 0.35s; color: var(--rose); }
+
+@keyframes g-shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+/* ---------- countdown ---------- */
+#game .timer { display: flex; align-items: center; gap: 10px; max-width: 460px; margin: 0 auto 12px; }
+#game .timer #secs { min-width: 3ch; font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; }
+#game .timer .track { flex: 1; height: 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.14); overflow: hidden; }
+
+#game .timer .bar {
+  height: 100%;
+  width: 100%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--rose), var(--gold));
+  transition: width 1s linear;
+}
+
+#game .timer.low #secs { color: var(--rose); animation: g-beat 0.8s ease-in-out infinite; }
+
+/* ---------- chapter I: word search ---------- */
+#game .grid {
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  gap: 4px;
+  max-width: 460px;
+  margin: 0 auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#game .cell {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 700;
+  font-size: clamp(13px, 3.9vw, 22px);
+  transition: background 0.12s, transform 0.12s;
+}
+
+#game .cell.sel { background: rgba(255, 126, 168, 0.6); transform: scale(1.08); }
+
+#game .cell.found {
+  background: linear-gradient(135deg, var(--gold), var(--blush));
+  color: var(--deep);
+  animation: g-pop 0.5s ease both;
+}
+
+@keyframes g-pop { 50% { transform: scale(1.28); } }
+
+/* ---------- chapter II: rose garden ---------- */
+#game .lives {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+#game .lives span { font-size: 1.15rem; color: var(--rose); transition: color 0.3s, transform 0.3s; }
+#game .lives span.lost { color: rgba(255, 255, 255, 0.18); transform: scale(0.8); }
+#game .lives small { margin-right: 6px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+#game .slots { display: flex; justify-content: center; gap: 10px; margin-bottom: 14px; }
+
+#game .slots span {
+  width: 42px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1.5px dashed var(--muted);
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--deep);
+  transition: all 0.4s;
+}
+
+#game .slots span.on {
+  background: linear-gradient(135deg, var(--gold), var(--blush));
+  border: 1.5px solid var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(246, 210, 139, 0.35);
+}
+
+#game .garden {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1.05;
+  border-radius: 20px;
+  background: hsl(335 45% 11%);
+  border: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+
+#game .leaf,
+#game .bloom {
+  position: absolute;
+  display: block;
+  transform: rotate(var(--r));
+}
+
+#game .leaf { background: hsl(var(--h) 26% var(--l)); border-radius: 0 100% 0 100%; }
+
+#game .bloom {
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%,
+    hsl(var(--h) 52% 32% / 0.9) 0 24%,
+    hsl(var(--h) 50% 27% / 0.85) 25% 52%,
+    hsl(var(--h) 46% 21% / 0.8) 53%);
+}
+
+#game .glyph {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%) rotate(var(--r));
+  padding: 4px 6px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  font-size: var(--fs);
+  color: var(--leaf);
+  animation: g-sway var(--sd, 4s) ease-in-out infinite;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+#game .glyph:hover { color: hsl(345 22% 36%); }
+#game .glyph.got { color: var(--gold); text-shadow: 0 0 16px var(--gold); pointer-events: none; }
+#game .glyph.nope { animation: g-shake 0.35s; color: var(--rose); }
+#game .glyph.pulse { animation: g-pulse 0.6s ease 3; color: #fff; }
+
+@keyframes g-pulse {
+  50% { text-shadow: 0 0 22px var(--rose), 0 0 6px #fff; transform: translate(-50%, -50%) scale(1.5); }
+}
+
+@keyframes g-sway {
+  0%, 100% { transform: translate(-50%, -50%) rotate(var(--r)); }
+  50% {
+    transform: translate(calc(-50% + var(--sx, 4px)), calc(-50% + var(--sy, 4px)))
+               rotate(calc(var(--r) + 9deg));
+  }
+}
+
+/* ---------- chapter III: rose shuffle ---------- */
+#game .pots { position: relative; height: 210px; max-width: 480px; margin: 18px auto 14px; }
+
+#game .pot {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: calc(100% / var(--n, 3));
+  left: calc(var(--slot) * 100% / var(--n, 3));
+  transition: left var(--swap, 0.5s) cubic-bezier(0.5, 0, 0.3, 1);
+  cursor: pointer;
+}
+
+#game .base {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 64px;
+  background: linear-gradient(#f6d28b 0 7px, #8c1b45 7px, #4d0b27);
+  clip-path: polygon(6% 0, 94% 0, 80% 100%, 20% 100%);
+}
+
+#game .tile {
+  position: absolute;
+  bottom: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 14px 4px;
+  border-radius: 999px;
+  white-space: nowrap;
+  background: linear-gradient(135deg, var(--gold), var(--blush));
+  color: var(--deep);
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  opacity: 0;
+  transition: opacity 0.2s;
+  box-shadow: 0 0 18px rgba(246, 210, 139, 0.55);
+}
+
+#game .cap {
+  position: absolute;
+  bottom: 46px;
+  left: 50%;
+  width: min(110px, 82%);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  transition: transform 0.4s cubic-bezier(0.3, 1.4, 0.5, 1);
+  z-index: 2;
+}
+
+#game .cap svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4)); }
+
+#game .pot.open { z-index: 5; }
+#game .pot.open .cap { transform: translate(-50%, -82px) rotate(-10deg); }
+#game .pot.open .tile { opacity: 1; }
+#game .pots.locked .pot { pointer-events: none; }
+
+/* ---------- finale ---------- */
+#game .name {
+  display: flex;
+  justify-content: center;
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-size: clamp(4rem, 22vw, 6.6rem);
+  line-height: 1.1;
+  color: var(--blush);
+  margin: 4px 0 6px;
+}
+
+#game .name span {
+  display: inline-block;
+  text-shadow: 0 0 26px rgba(255, 126, 168, 0.75), 0 0 6px rgba(255, 255, 255, 0.4);
+  animation: g-letterIn 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation-delay: calc(var(--i) * 0.22s + 0.2s);
+}
+
+@keyframes g-letterIn {
+  from { opacity: 0; transform: translateY(36px) scale(0.5) rotate(-12deg); }
+}
+
+#game .love { margin: 6px 0 22px; }
+
+#game .love p {
+  margin: 0 0 8px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.28rem;
+  line-height: 1.45;
+  color: var(--text);
+  opacity: 0;
+  animation: g-fadeIn 1.2s ease forwards;
+  animation-delay: calc(1.8s + var(--i) * 1.5s);
+}
+
+#game .love .from { color: var(--gold); margin-top: 14px; }
+
+@keyframes g-fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+#game .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  opacity: 0;
+  animation: g-fadeIn 1s ease forwards;
+  animation-delay: 7s;
+}
+
+#game .petals { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+#game .petals i {
+  position: absolute;
+  top: -30px;
+  width: var(--w);
+  height: calc(var(--w) * 1.4);
+  background: hsl(var(--h) 85% 72%);
+  border-radius: 100% 0 100% 0;
+  animation: g-fall var(--t) linear var(--dl) infinite;
+}
+
+@keyframes g-fall { to { transform: translate(var(--dx), 110vh) rotate(540deg); } }
+
+#game .burst {
+  position: fixed;
+  z-index: 20;
+  pointer-events: none;
+  font-size: var(--s);
+  font-weight: 400;
+  transform: translate(-50%, -50%);
+  animation: g-burst 1.2s ease-out forwards;
+}
+
+@keyframes g-burst {
+  to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.4); opacity: 0; }
+}
+
+/* ---------- toast ---------- */
+#game .toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  z-index: 30;
+  transform: translate(-50%, 20px);
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: rgba(30, 6, 22, 0.94);
+  border: 1px solid var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s;
+}
+
+#game .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  #game .hearts,
+  #game .petals { display: none; }
+
+  #game *,
+  #game *::before {
+    animation-duration: 0.01s !important;
+    animation-delay: 0s !important;
+  }
+}
